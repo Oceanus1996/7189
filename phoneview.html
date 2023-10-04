@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>phoneview</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .phone-mockup {
+            position: relative;
+            width: 768px;  /* Adjust to the width of your phone image */
+            height: 767px; /* Adjust to the height of your phone image */
+            background-image: url('path_to_your_phone_image.png');
+            background-size: cover;
+        }
+        .phone-mockup iframe {
+            position: absolute;
+            top: 60px;  /* Adjust the distance from the top of the phone image to the start of the screen */
+            left: 20px; /* Adjust the distance from the left side of the phone image to the start of the screen */
+            width: 500px; /* Adjust to the width of the screen */
+            height: 1000px; /* Adjust to the height of the screen */
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-mockup">
+        <iframe src="index.html"></iframe>
+    </div>
+</body>
+</html>
