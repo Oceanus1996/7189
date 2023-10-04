@@ -30,8 +30,8 @@
     height: auto;   
 }
 .model-content p {
-    height: 300px;         
-    overflow-y: hidden;    
+    height: 300px;          /* 限制高度为 300px */
+    overflow-y: hidden;    /* 隐藏超出部分 */
     position: relative;
 }
 .close{

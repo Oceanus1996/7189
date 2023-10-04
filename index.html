@@ -8,15 +8,15 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
     crossorigin=""/>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/code.jquery.com_jquery-3.6.0.min.js"></script>
+    <script src="js/unpkg.com_leaflet@1.9.4_dist_leaflet.js"></script>
     <style>
       #map { height: 700px; }
     </style>
     <link rel="stylesheet" href="mvp.css">
 </head>
 <body>
-    <!-- nava -->
+    <!-- 导航栏 -->
     <header>
         <input type="checkbox" id="toggler">     
         <label for="toggler">
@@ -33,7 +33,9 @@
             <li><a href="#">Adventure</a></li>
             <li><a href="#">Education</a></li>
             <li><a href="experience.html">Experience</a></li>
-            
+            <li><a href="login.html">Login</a></li>
+            <li><a href="register.html">Register</a></li>
+
           </ul>
         </div>
         <img src="logo.png" alt="logo" class="logo">
@@ -44,15 +46,15 @@
 
     </header>
 
-    <!-- map -->
+    <!-- map放置处 -->
     <div ,class="modal">
         <div class="model-content" id = "myModal">
             <span class="close">&times;</span>
 
-            <!-- popup -->
-            <h1></h1>
+            <!-- 弹窗内容 -->
+            <h1>默认标题</h1>
             <img>
-            <p></p>
+            <p>图片的标注</p>
 
             
         </div>
@@ -80,9 +82,20 @@
     </div>
 
     </footer>
-    <!-- soild height-->
+    <!-- 固定高度为可视高度 -->
     <script>
       document.body.style.height = window.innerHeight + 'px';
+      $(function () {
+          $.ajax({
+              url: "check_login.php",
+              method: "GET",
+              success: function(msg) {
+                  if (msg == 1){
+                      window.location="login.html";
+                  }
+              },
+          })
+      })
     </script>
 
         

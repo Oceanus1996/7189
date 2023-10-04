@@ -1,96 +1,97 @@
-// Initialize the map
-var map = L.map('map').setView([-3.56518,143.619995], 5); // Use Wewak, New Guinea as the initial center
+
+// 初始化地图
+var map = L.map('map').setView([-3.56518,143.619995], 5); // 使用Wewak, New Guinea作为初始中心
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-// Global variable for modal
+//全局变量modal
 var modal = document.getElementById("myModal");
-// Global variable for markerArray
-var markerArray = [];
-// Global variable for grabbed
-var grabbed = [];
-// Global variable for health bar count
+//全局变量markerArray
+var markerArray=[];
+//全局变量grabbed
+var grabbed=[];
+//全局变量血条计数
 var grabbedMarkersCount = 0;
-var grabbedMarkers = 0;
-
-// Click event for labels
-function openModal() {
-    modal.style.display = "block";
-    displayRecordData(this.recordData);
-}
-
-// Player
+var grabbedMarkers=0;
+//标签的click事件
+function openModal(){
+    modal.style.display ="block";
+    displayRecordData(this.recordData);}
+// 玩家
 let playerLevel = 1;
-const EXPERIENCE_TO_LEVEL_UP = 3; // Level up every 3 experience points
+const EXPERIENCE_TO_LEVEL_UP = 3; // 每3经验点升级
 
-// Close button
+
+//close按钮
 var closeButton = document.querySelector(".close");
-
-// Close the modal
-closeButton.addEventListener("click", function() {
-    modal.style.display = "none";
+//关闭
+closeButton.addEventListener("click",function(){
+    modal.style.display ="none";
 });
-
-// Display the record's URL
-function displayRecordData(textContent, image, title) {
-    var modelContent = document.querySelector(".model-content p");
-    var modelPicture = document.querySelector(".model-content img");
-    var modelTitle = document.querySelector(".model-content h1");
+//记录这个标记的url
+function displayRecordData(textContent,image,title){
+    var  modelContent = document.querySelector(".model-content p")
+    var  modelpicture = document.querySelector(".model-content img")
+    var  modelTitle = document.querySelector(".model-content h1")
     modelContent.textContent = textContent;
-    if (image != null) {
-        modelPicture.src = image;
-    } else {
-        modelPicture.alt = "No pictures";
+    if(image != null){
+        modelpicture.src = image;
+    }else{
+        modelpicture.alt="NO pictures";
     }
-    modelTitle.textContent = title;
+    modelTitle.textContent= title;
 }
 
-// Update health bar
-function updateHealthBar() {
+//update 血条
+function updateHealthBar(){
     let experiencePercentage = (grabbedMarkersCount / EXPERIENCE_TO_LEVEL_UP) * 100;
+
+    // 更新经验条的宽度
     document.querySelector('.progress').style.width = experiencePercentage + '%';
 
-    // Check for level up
+    // 判断是否升级
     if (grabbedMarkersCount >= EXPERIENCE_TO_LEVEL_UP) {
         playerLevel++;
         grabbedMarkersCount = 0;
         document.querySelector('.level').textContent = 'Level' + playerLevel;
-        document.querySelector('.progress').style.width = '0%'; // Reset the progress bar
+        document.querySelector('.progress').style.width = '0%'; // 经验条归零
     }
-}
+    
+};
 
-// Event triggered, send AJAX request to PHP
-function handleMarkerClick(url, image, marker) {
-    var isGrab = marker.isGrab;
+
+//事件触发时发送ajax到php
+function handleMarkerClick(url,image,marker){
+    var isGrab =marker.isGrab;
     $.ajax({
-        url: "mvp.php",
-        method: "POST",
-        data: { urlToFetch: url },
-        success: function(response) {
-            // Remove unwanted content
+        url:"mvp.php",
+        method:"POST",
+        data:{urlToFetch:url},
+        success:function(response){
             response = response.replace(/\[an error occurred while processing this directive\]/g, '');
             let $content = $(response);
             let title = $content.filter("title").text();
             let textContent = $content.find('div#page > div#main > div#col1 > div#col1_content > div.module.content_12col > div.container > div.story > div.story_body.description').text();
-            displayRecordData(textContent, image, title);
+            displayRecordData(textContent,image,title);
             
-            // Update health bar
-            if (!isGrab) {
+            //血条计数 
+            if(!isGrab){
                 grabbedMarkersCount++;
                 grabbedMarkers++;
                 updateHealthBar(grabbedMarkersCount);
-
-                // Add to unlocked array
+                //添加到已解锁数组中
                 var object = {
                     title: title,
                     image: image,
                     url: url,
-                    grabbedMarkersCount: grabbedMarkers
-                };
+                    grabbedMarkersCount:grabbedMarkers
+                };            
                 grabbed.push(object);
-                console.log("grabbed: " + grabbed);
+                console.log("grabbed"+grabbed);
+
+            } else {
             }
             marker.isGrab = true;
         },
@@ -100,13 +101,19 @@ function handleMarkerClick(url, image, marker) {
     });
 }
 
-// Save data and send to server
+//保存数据并发送给experience
 function sendUrlsToServer() {
     $.ajax({
         url: "storageData.php",
         method: "POST",
-        data: { grabbed: JSON.stringify(grabbed) },
+        data: {grabbed: JSON.stringify(grabbed) },
         success: function(response) {
+            // var response = "{\"message\":\"URLs stored successfully!\",\"data\":[{\"title\":\"South East Queensland cleans up - ABC (none) - Australian Broadcasting Corporation\",\"image\":\"http:\\/\\/www.abc.net.au\\/reslib\\/201101\\/r702380_5400964.jpg\",\"url\":\"http:\\/\\/www.abc.net.au\\/local\\/photos\\/2011\\/01\\/16\\/3113930.htm\",\"grabbedMarkersCount\":1}]}"
+            $.ajax({
+                url: "save.php",
+                method: "POST",
+                data:{datas:response},
+            })
             console.log("URLs stored successfully:", response);
         },
         error: function(error) {
@@ -114,145 +121,141 @@ function sendUrlsToServer() {
         }
     });
 }
+//定时保存，每3秒
+setInterval(sendUrlsToServer, 3*1000);
 
-// Periodic save, every 3 seconds
-setInterval(sendUrlsToServer, 3 * 1000);
-
-// Add markers to map
-function addPointToMap(lat, lon, recordValue) {
-    var marker = L.marker([lat, lon]).addTo(map);
+//加标记点的文档
+function addPointToMap(lat, lon,recordValue) {
+    var marker =L.marker([lat, lon]).addTo(map);
     marker.isGrab = false;
     var supportClick = false;
     markerArray.push(marker);
-    marker.recordData = recordValue.URL;
+    //数据存储到marker对象中
+    marker.recordData =recordValue.URL;//url储存了
     marker.image = recordValue['Primary image'];
-
-    // Click event
-    marker.on("click", function(e) {
-        // Show confirmation dialog
-        showConfirmationPopup(e.target, function(result) {
+    //点击时执行括号(事件监听器)
+    marker.on("click",function(e){
+        //监听点击
+        //询问框，询问是否挖掘
+        showConfirmationPopup(e.target,function(result){
             supportClick = result;
-            if (supportClick) {
+            if(supportClick){
                 openModal.call(marker);
-                handleMarkerClick(this.recordData, this.image, marker);
+                handleMarkerClick(this.recordData,this.image,marker);
                 marker.setIcon(customIcon);
             }
-        }.bind(this));
+        }.bind(this));             
     });
 }
-
-// Confirmation dialog
+//询问框
 function showConfirmationPopup(clickedMarker, callback) {
     var popupContent = `
         <p>Dig now?</p>
         <button id="startGrab">Sure</button>
         <button id="noGrab">Not yet</button>
     `;
-
     clickedMarker.bindPopup(popupContent).openPopup();
-    document.getElementById("startGrab").addEventListener('click', function() {
+    document.getElementById("startGrab").addEventListener('click',function(){
+
         if (typeof callback === "function") {
             callback(true);
         }
         clickedMarker.closePopup();
         clickedMarker.unbindPopup();
     });
-
-    document.getElementById("noGrab").addEventListener('click', function() {
+    document.getElementById("noGrab").addEventListener('click',function(){
         clickedMarker.closePopup();
         if (typeof callback === "function") {
             callback(false);
         }
     });
+    
 }
 
-// Function to process and iterate over the records from the dataset
+
 function iterateRecords(data) {
     $.each(data.result.records, function(recordKey, recordValue) {
-        // Define the suburbs in Brisbane to be included
         const brisbaneSuburbs = [
             "Brisbane","Brisbane-City","South Brisbane", "West End","Fortitude Valley","Woolloongabba","Indooroopilly",
             ,"Toowong","Chermside","Fairfield", "Milton","South Bank", "Wynnum", "Lytton",
             "Albion","Bowen Hills","Herston", "New Farm","Taringa","Annerley", "Ashgrove","Bardon", "Bulimba", "Kangaroo Point",
             "Kelvin Grove", "Mount Gravatt"
         ];
-
-        // Check if the current record is from the suburbs in the list
         if(brisbaneSuburbs.includes(recordValue.Place)){
-            var latitude = recordValue.Latitude + (Math.random() * 0.2 - 0.1)
+            var latitude = recordValue.Latitude +(Math.random() * 0.2 - 0.1)
             var Longitude = recordValue.Longitude + (Math.random() * 0.2 - 0.1)
-
-            // If valid latitude and longitude are present, add a point to the map
-            if(latitude && Longitude) {
-                addPointToMap(latitude, Longitude, recordValue)
-            }  
-        }
-    })
+            if(latitude && Longitude){
+                addPointToMap(latitude,Longitude,recordValue)
+        
+            }
+            
+            }
+    }
+    )
 }
 
-// Initialize once the document is ready
 $(document).ready(function() {
 
     var data = {
-        resource_id: "d73f2a2a-c271-4edd-ac45-25fd7ad2241f", // To change to a different dataset, modify the resource_id
+        resource_id: "d73f2a2a-c271-4edd-ac45-25fd7ad2241f", // to change to a different dataset, change the resource_id
         limit: 8500,
     }
 
-    // Fetch coordinates and add markers to the map
+//输入坐标增加标记
     $.ajax({
-        url: "https://data.gov.au/data/api/3/action/datastore_search", // Change the URL if fetching data from a different portal
+        url: "https://data.gov.au/data/api/3/action/datastore_search", // if the dataset is coming from a different data portal, change the url (i.e. data.gov.au)
         data: data,
-        dataType: "jsonp", // Use "jsonp" to ensure AJAX works correctly locally (prevents cross-site scripting issues)
+        dataType: "jsonp", // We use "jsonp" to ensure AJAX works correctly locally (otherwise XSS).
         cache: true,
         success: function(data) {
+            console.log(data)
             iterateRecords(data);
         }
     });      
+})  ;
+
+//点击打开视窗
+document.addEventListener("DOMContentLoaded",function(){
 });
 
-// Event listener for when the document is fully loaded
-document.addEventListener("DOMContentLoaded", function(){
-    // Any additional functionality to run once the document is loaded can be added here
-});
-
-// Function to show the current location of the user on the map
-function showCurrent() {
-    if (navigator.geolocation) {        
-        navigator.geolocation.getCurrentPosition(function (position) {
-            var pos = L.latLng(position.coords.latitude, position.coords.longitude);
-            L.marker([position.coords.latitude, position.coords.longitude], {icon: userIcon}).addTo(map);
-            // Center and zoom the map to the user's location
-            map.setView(pos, 13);
-
-            // Set opacity based on the distance of markers from the user
-            markerArray.forEach(function(marker) {
-                var distance = pos.distanceTo(marker.getLatLng());
-                if (distance <= 10*200) {
+//button功能，显示当前地址
+function showCurrent(){
+    if (navigator.geolocation){
+        
+        navigator.geolocation.getCurrentPosition(function (position){
+            var pos = L.latLng(position.coords.latitude,position.coords.longitude);
+            L.marker([position.coords.latitude, position.coords.longitude],{icon:userIcon}).addTo(map);
+            //定位并放大地图
+            map.setView(pos,13);
+            //让其他过远的点都不可见
+            markerArray.forEach(function(marker){
+                var distance= pos.distanceTo(marker.getLatLng());
+                if (distance <= 10*200){
                     marker.setOpacity(1);
-                } else if (distance <= 10*400) {
+                }else if (distance <= 10*400) {
                     marker.setOpacity(0.5);
-                } else {
+                }else{
                     marker.setOpacity(0);
                 }
-            });
+            })
+
         });
-    } else {
-        alert("Unable to determine your location.");
+    }else{
+        alert("Where are you?");
     }
 }
 
-// Format for custom marker icons
+//锚点格式,需要调整*
 var customIcon = L.icon({
-    iconUrl: 'icon.png',    // URL for the icon image
-    iconSize: [50, 50],     // Size of the icon
-    iconAnchor: [22, 94],   // The anchor point of the icon to align with the map coordinates
-    popupAnchor: [-3, -76]  // Anchor point for the popup if you want to add one for this marker
+    iconUrl: 'icon.png',    // 图标的URL
+    iconSize: [60, 50],       // 图标的大小
+    iconAnchor: [22, 94],     // 图标的锚点位置，使图标的这个点正好对齐于地图上的对应点
+    popupAnchor: [-3, -76]    // 如果你想为这个标记添加一个popup，这个是popup的锚点位置
 });
 
-// Format for user marker icon
+//user图标
 var userIcon = L.icon({
     iconUrl: 'user.png',
-    iconSize: [60, 60],     // Size of the icon
-    iconAnchor: [22, 94],   // The anchor point of the icon to align with the map coordinates
-});
-
+    iconSize: [60, 60],       // 图标的大小
+    iconAnchor: [22, 94],     // 图标的锚点位置，使图标的这个点正好对齐于地图上的对应点
+})
