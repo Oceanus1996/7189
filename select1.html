@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SELECT MODE</title>
+    <style>
+        body{
+            background-color: rgb(174, 186, 180);
+            margin: 0; /* 去除默认的body外边距 */
+            height: 100vh; /* 使 body 高度占满视口高度 */
+            display: flex;
+            align-items: center; /* 垂直居中 */
+            justify-content: center; /* 水平居中 */
+        }
+        .container{
+            display: flex;
+            align-items: center; /* 垂直居中 */
+            justify-content: center; /* 水平居中 */
+
+    
+        }
+        .block-1{
+            width: 300px;   
+            height: 300px;
+            margin: 100px;
+            background-color: rgb(234, 236, 240);
+            border-radius: 50px;
+            box-shadow: 20px 20px 20px -10px rgba(0, 0, 0, 0.15),
+                        inset  10px 10px 5px rgba(255, 255, 255, 0.45),
+                        -5px -5px 10px 10px rgba(255, 255, 255,0.55);
+            text-align: center; /* 文本水平居中 */ 
+            justify-content: center; /* 垂直居中 */
+            display: flex;
+            cursor: pointer;
+            /* transition:background-image 0.9s; */
+            position: relative;
+            overflow: hidden;
+        }
+        .block-1:hover{
+            background-image: linear-gradient(to top right, #FF5733, #8DABDB);
+        }
+        .block-1 p{
+            display: flex;
+            color: #5a4141; /* 文本颜色 */
+            font-size: 18px; /* 字体大小 */
+            font-family: Arial, sans-serif; /* 字体 */
+        }
+
+        .block-1::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: linear-gradient(to top right, #FF5733, #8DABDB);
+            opacity: 0;
+            transition: opacity 0.9s;
+            z-index: -1; 
+        }
+
+.block-1:hover::before {
+    opacity: 1;
+}
+    </style>
+</head>
+<body >
+    <div class="container">
+        <div class="block-1">
+         <p>ADVENTRUE MODE</p>
+        </div>
+
+        <div class="block-1">
+            <p>NORMAL MODE</p>
+        </div>
+
+    </div>
+    
+    
+</body> 
+
+</html> 
