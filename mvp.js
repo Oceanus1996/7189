@@ -2,8 +2,13 @@
 // 初始化地图
 var map = L.map('map').setView([-3.56518,143.619995], 5); // 使用Wewak, New Guinea作为初始中心
 
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+// L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+//     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+// }).addTo(map);
+
+L.tileLayer('https://tile.thunderforest.com/spinal-map/{z}/{x}/{y}.png?apikey=b6bf392431654cfd9009af454cf8e333', {
+    attribution: '&copy; Thunderforest, &copy; OpenStreetMap Contributors',
+    maxZoom: 22
 }).addTo(map);
 
 //全局变量modal
@@ -147,7 +152,7 @@ function addPointToMap(lat, lon,recordValue) {
         }.bind(this));             
     });
 }
-//询问框
+//询问框->侧边框
 function showConfirmationPopup(clickedMarker, callback) {
     var popupContent = `
         <p>Dig now?</p>
@@ -169,9 +174,13 @@ function showConfirmationPopup(clickedMarker, callback) {
             callback(false);
         }
     });
+    document.getElementById('confirmationSidebar').classList.remove('hidden');
     
 }
-
+//侧边框关闭
+function closeConfirmationSidebar() {
+    document.getElementById('confirmationSidebar').classList.add('hidden');
+}
 
 function iterateRecords(data) {
     $.each(data.result.records, function(recordKey, recordValue) {
@@ -259,3 +268,21 @@ var userIcon = L.icon({
     iconSize: [60, 60],       // 图标的大小
     iconAnchor: [22, 94],     // 图标的锚点位置，使图标的这个点正好对齐于地图上的对应点
 })
+
+//旁白
+let currentNarration = 1; // 当前显示的旁白
+
+function showNextNarration() {
+    // 隐藏当前的旁白
+    $(`#narration-${currentNarration}`).addClass('hidden');
+
+    currentNarration++;
+
+    // 如果还有旁白需要显示
+    if (currentNarration <= 6) {
+        $(`#narration-${currentNarration}`).removeClass('hidden');
+    } else {
+        // 所有旁白都显示完后，隐藏按钮
+        $('#narration-container button').hide();
+    }
+}

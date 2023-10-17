@@ -12,20 +12,32 @@
             display: flex;
             align-items: center; /* 垂直居中 */
             justify-content: center; /* 水平居中 */
+            flex-direction: column;  /* 使 body 的子元素垂直堆叠 */
+            align-items: center;  /* 水平居中子元素 */
+            justify-content: center;  /* 垂直居中子元素 */
+        }
+        .mode{
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+            opacity: 0;
+            transition: opacity 2s;
         }
         .container{
             display: flex;
             align-items: center; /* 垂直居中 */
             justify-content: center; /* 水平居中 */
-
-    
         }
+        .caption{
+            display: flex;
+
+}
         .block-1{
             width: 300px;   
-            height: 300px;
+            height: 400px;
             margin: 100px;
-            background-color: rgb(234, 236, 240);
             border-radius: 50px;
+            position: relative;
             box-shadow: 20px 20px 20px -10px rgba(0, 0, 0, 0.15),
                         inset  10px 10px 5px rgba(255, 255, 255, 0.45),
                         -5px -5px 10px 10px rgba(255, 255, 255,0.55);
@@ -54,30 +66,119 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-image: linear-gradient(to top right, #FF5733, #8DABDB);
+            background-color: rgb(234, 236, 240);  /* 添加这一行 */
+            background-image: linear-gradient(to top right, #e7dad7, #a6b9d7);
             opacity: 0;
-            transition: opacity 0.9s;
-            z-index: -1; 
+            transition: opacity .5s;
+            z-index: 0; 
         }
 
 .block-1:hover::before {
     opacity: 1;
 }
-    </style>
+.block-1::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    transition: opacity 0.9s;
+    z-index: 1; /* 使得图片在文字上方 */
+}
+
+.male::after {
+    background-image: url('icon\\female-1.png');
+    background-size: cover;
+    background-position: center;
+}
+.female::after {
+    background-image: url('path/to/male.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.block-1:hover::after {
+    opacity: 1;
+}
+
+.welcome-text {
+    font-size: 24px;
+    opacity: 0;
+    transition: opacity 2s;
+}
+
+</style>
 </head>
 <body >
-    <div class="container">
-        <div class="block-1">
-         <p>ADVENTRUE MODE</p>
-        </div>
+    <div class="welcome-text" hidden>
+        Text 1: Welcome to our game!
+    </div>
 
-        <div class="block-1">
-            <p>NORMAL MODE</p>
-        </div>
+    <div class="welcome-text" hidden>
+        Text 2: Prepare for an epic journey!
+    </div>
 
+    <div class="welcome-text" hidden>
+        Text 3: Are you ready?
     </div>
     
+    <div class="mode" hidden>
+        <div class="caption" >
+            <P>CHOOSE YOUR CHARERTER</P>
+        </div>
+
+        <div class="container" id="maleOption" onclick="redirectToNextPage('male')" >
+            <div class="block-1 male" id="femaleOption" onclick="redirectToNextPage('female')">
+            <p>MALE</p>
+            </div>
+
+            <div class="block-1 female">
+                <p>FEMALE</p>
+            </div>
+        </div>
+    </div>
     
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const welcomeTexts = document.querySelectorAll('.welcome-text');
+    const modeSelection = document.querySelector('.mode');
+    
+    let currentTextIndex = 0;
+
+    function showTextAndHide() {
+        welcomeTexts[currentTextIndex].removeAttribute('hidden');
+        setTimeout(() => {
+            welcomeTexts[currentTextIndex].style.opacity = '1';
+        }, 500);
+
+        setTimeout(() => {
+            welcomeTexts[currentTextIndex].style.opacity = '0';
+            currentTextIndex++;
+
+            if (currentTextIndex < welcomeTexts.length) {
+                setTimeout(showTextAndHide, 500);
+            } else {
+                showModeSelection();
+            }
+        }, 3500); // 3.5 seconds for each text
+    }
+
+    function showModeSelection() {
+        modeSelection.removeAttribute('hidden');
+        setTimeout(() => {
+            modeSelection.style.opacity = '1';
+        }, 500);
+    }
+    showTextAndHide();
+});
+
+function redirectToNextPage(gender) {
+        window.location.href = 'index.html';
+    }
+
+</script>
 </body> 
 
 </html> 

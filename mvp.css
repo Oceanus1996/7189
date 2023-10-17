@@ -42,3 +42,11 @@
     cursor: pointer;
 }
 
+/* 旁白 */
+.hidden {
+    display: none;
+}
+
+.narration {
+    transition: opacity 0.5s;
+}

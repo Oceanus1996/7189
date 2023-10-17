@@ -66,6 +66,21 @@
         <script src="mvp.js"></script>
 
     </div>
+    <div id="narration-container" >
+      <p class="narration" id="narration-1">世界已经陷入危机。</p>
+      <p class="narration hidden" id="narration-2">海水变成火焰，乐园化为焦土。</p>
+      <p class="narration hidden" id="narration-3">唯有你能拯救这一切。</p>
+      <p class="narration hidden" id="narration-4">看到图上的恶龙了吗</p>
+      <p class="narration hidden" id="narration-5">他们是世界陷入痛苦的源泉，他们吸食人的记忆为生</p>
+      <p class="narration hidden" id="narration-6">靠近他们，夺走他们的故事，打败他们！</p>
+      <button onclick="showNextNarration()">点击继续</button>
+    </div>
+    <div id="sidebar" class="sidebar hidden">
+      <!-- 你的侧边栏内容 -->
+      <h2>详细信息</h2>
+      <p>这里是该地点的详细信息。</p>
+      <button onclick="closeSidebar()">关闭</button>
+    </div>
 
 
 
@@ -80,7 +95,7 @@
             <div class="progress"></div>
       </div>
     </div>
-
+ 
     </footer>
     <!-- 固定高度为可视高度 -->
     <script>
