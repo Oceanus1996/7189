@@ -293,7 +293,7 @@ $(document).ready(function() {
             iterateRecords(data);
         }
     });      
-})  ;
+});
 
 //点击打开视窗
 document.addEventListener("DOMContentLoaded",function(){
