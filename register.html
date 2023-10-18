@@ -3,13 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Register</title>
+    <link rel="stylesheet" href="login.css">
 </head>
 <body>
-<form action="register.php" method="post">
-    <label>username:</label><input type="text" name="username">
-    <br><br>
-    <label>password:</label><input type="password" name="password">
-    <input type="submit" value="注册">
-</form>
+    <div class="box">
+        <h2>Register</h2>
+        <br>
+        <br>
+        <div class="input-box">
+            <form action="register.php" method="post">
+                <label class="label">username:</label>
+                <input type="text" name="username" class="input">
+                <br><br>
+                <label class="label">password:</label>
+                <input type="password" name="password" class="input">
+                <br>
+                <br>
+                <input type="submit" value="register" class="login">
+            </form>
+        </div>
+        
+    </div>
+
 </body>
 </html>
