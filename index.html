@@ -10,13 +10,10 @@
     crossorigin=""/>
     <script src="js/code.jquery.com_jquery-3.6.0.min.js"></script>
     <script src="js/unpkg.com_leaflet@1.9.4_dist_leaflet.js"></script>
-    <style>
-      #map { height: 700px; }
-    </style>
     <link rel="stylesheet" href="mvp.css">
 </head>
 <body>
-    <!-- 导航栏 -->
+   
     <header>
         <input type="checkbox" id="toggler">     
         <label for="toggler">
@@ -47,43 +44,47 @@
     </header>
 
     <!-- map放置处 -->
-    <div ,class="modal">
+    <div ,class="modal" id="all-cont">
         <div class="model-content" id = "myModal">
             <span class="close">&times;</span>
-
             <!-- 弹窗内容 -->
             <h1>默认标题</h1>
             <img>
             <p>图片的标注</p>
-
-            
         </div>
-        <div id="map"></div> 
+        <div id="map">  
+          
+          <div id="dialogue-column">
+              <img src="icon/female.png" alt="Person" class="person-image">
+              <!-- 对话框 -->
+              <div class="dialogue-box">
+                <div id="narration-container" >
+                  <p class="narration" id="narration-1">世界已经陷入危机。</p>
+                  <p class="narration hidden" id="narration-2">海水变成火焰，乐园化为焦土。</p>
+                  <p class="narration hidden" id="narration-3">唯有你能拯救这一切。</p>
+                  <p class="narration hidden" id="narration-4">看到图上的恶龙了吗</p>
+                  <p class="narration hidden" id="narration-5">他们是世界陷入痛苦的源泉，他们吸食人的记忆为生</p>
+                  <p class="narration hidden" id="congration-1">恭喜你，打败了他，夺回了记忆</p>
+                  <p class="narration hidden" id="congration-2">就是这样，一路下去，我们可以夺回我们的世界</p>
+                  <p class="narration hidden" id="congration-3">记忆证明了我们存在的价值</p>
+                  <p class="narration hidden" id="congration-4">你守护了他们，继续努力</p>
+              
+                  <button id="navabutton" onclick="showNextNarration()">点击继续</button>
+                
+                </div>
+                
+              </div>
+          </div>
+        </div> 
         <div class="buttoncontainer">
           <button type="button" onclick="showCurrent()" class="locationbutton">Current location</button>
         </div>
-        
-        <script src="mvp.js"></script>
-
-    </div>
-    <div id="narration-container" >
-      <p class="narration" id="narration-1">世界已经陷入危机。</p>
-      <p class="narration hidden" id="narration-2">海水变成火焰，乐园化为焦土。</p>
-      <p class="narration hidden" id="narration-3">唯有你能拯救这一切。</p>
-      <p class="narration hidden" id="narration-4">看到图上的恶龙了吗</p>
-      <p class="narration hidden" id="narration-5">他们是世界陷入痛苦的源泉，他们吸食人的记忆为生</p>
-      <p class="narration hidden" id="narration-6">靠近他们，夺走他们的故事，打败他们！</p>
-      <button onclick="showNextNarration()">点击继续</button>
-    </div>
-    <div id="sidebar" class="sidebar hidden">
-      <!-- 你的侧边栏内容 -->
-      <h2>详细信息</h2>
-      <p>这里是该地点的详细信息。</p>
-      <button onclick="closeSidebar()">关闭</button>
+      
     </div>
 
+ 
 
-
+    <script src="mvp.js"></script>
     <footer>
       <a href="experience.html">
         <img src="icon/touxiang.webp" alt="user" class="user">
@@ -95,6 +96,12 @@
             <div class="progress"></div>
       </div>
     </div>
+    
+    <audio id="sidebarAudio" preload="auto">
+      <source src="path_to_your_audio_file.mp3" type="audio/mpeg">
+      您的浏览器不支持audio元素。
+    </audio>
+  
  
     </footer>
     <!-- 固定高度为可视高度 -->
