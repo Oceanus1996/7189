@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SELECT MODE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500&display=swap');
         body{
-            background-color: rgb(174, 186, 180);
+            background: url(icon/background.png);
             margin: 0; /* 去除默认的body外边距 */
             height: 100vh; /* 使 body 高度占满视口高度 */
             display: flex;
@@ -30,6 +32,9 @@
         }
         .caption{
             display: flex;
+            color: aliceblue;
+            font-size: 25px;
+            font-family: 'Cinzel', serif;
 
 }
         .block-1{
@@ -54,8 +59,8 @@
         }
         .block-1 p{
             display: flex;
-            color: #5a4141; /* 文本颜色 */
-            font-size: 18px; /* 字体大小 */
+            color: #ffffff; /* 文本颜色 */
+            font-size: 25px; /* 字体大小 */
             font-family: Arial, sans-serif; /* 字体 */
         }
 
@@ -89,12 +94,12 @@
 }
 
 .male::after {
-    background-image: url('icon\\female-1.png');
+    background-image: url(icon/male1.png);
     background-size: cover;
     background-position: center;
 }
 .female::after {
-    background-image: url('path/to/male.jpg');
+    background-image: url(icon/female1.png);
     background-size: cover;
     background-position: center;
 }
@@ -104,24 +109,51 @@
 }
 
 .welcome-text {
-    font-size: 24px;
+    font-size: 30px;
+    font-family: 'Cinzel', serif;
     opacity: 0;
     transition: opacity 2s;
+    color: aliceblue;
+    text-align: center; /* 文本居中 */
+    max-width: 600px; /* 或您希望的任何其他宽度 */
+    margin: 0 auto; /* 使元素在其父元素中水平居中 */
+    white-space: pre-line; text-align: center; /* 文本居中 */
+    max-width: 600px; /* 或您希望的任何其他宽度 */
+    position: absolute; /* 使用绝对定位 */
+    top: 50%; /* 从顶部开始到中间位置 */
+    left: 50%; /* 从左边开始到中间位置 */
+    transform: translate(-50%, -50%); /* 使元素完全居中 */
+    white-space: pre-line;
+}
+#musicToggleBtn {
+    position: absolute;  /* 使用绝对定位 */
+    bottom: 20px;        /* 距离底部20像素 */
+    right: 20px;         /* 距离右侧20像素 */
+    padding: 10px 15px;  /* 适当的内边距 */
+    background-color: rgba(255, 255, 255, 0.7);  /* 半透明的背景 */
+    border: none;
+    border-radius: 5px;  /* 圆角 */
+    cursor: pointer;     /* 手型鼠标指针 */
+}
+
+/* 鼠标悬停时的样式 */
+#musicToggleBtn:hover {
+    background-color: rgba(255, 255, 255, 1);
 }
 
 </style>
 </head>
 <body >
     <div class="welcome-text" hidden>
-        Text 1: Welcome to our game!
+        You are a young hero heard tales of a dragon that had sealed away the entire city.
     </div>
 
     <div class="welcome-text" hidden>
-        Text 2: Prepare for an epic journey!
+        Determined to break the seal and restore peace to the city, you embark on an adventurous quest to unravel the mystery of the enchantment.
     </div>
 
     <div class="welcome-text" hidden>
-        Text 3: Are you ready?
+        Are you ready?
     </div>
     
     <div class="mode" hidden>
@@ -139,6 +171,11 @@
             </div>
         </div>
     </div>
+    <button id="musicToggleBtn"><i class="fas fa-play"></i></button>
+    <audio id="backgroundMusic" loop autoplay>
+        <source src="icon/Prelude.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
     
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -162,7 +199,7 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 showModeSelection();
             }
-        }, 3500); // 3.5 seconds for each text
+        }, 4000); // 4 seconds for each text
     }
 
     function showModeSelection() {
@@ -177,6 +214,26 @@ document.addEventListener('DOMContentLoaded', function() {
 function redirectToNextPage(gender) {
         window.location.href = 'index.html';
     }
+
+    document.getElementById('musicToggleBtn').addEventListener('click', function() {
+    var music = document.getElementById('backgroundMusic');
+    var icon = this.querySelector('i');
+    
+    if (music.paused) {
+        music.play();
+        icon.className = "fas fa-pause";  // 更改为暂停图标
+    } else {
+        music.pause();
+        icon.className = "fas fa-play";  // 更改为播放图标
+    }
+});
+
+
+
+
+
+
+
 
 </script>
 </body> 
