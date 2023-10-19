@@ -299,29 +299,41 @@ footer a:hover {
 
 /* basic css */
 /* 为所有的记录div设置基本样式 */
-.record-div {
-  border: 1px solid #ccc;  /* 添加边框 */
-  margin: 10px;            /* 设置外边距 */
-  padding: 10px;           /* 设置内边距 */
-  background-color: #f9f9f9; /* 设置背景色 */
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* 添加盒子阴影效果 */
-  transition: 0.3s;       /* 平滑过渡效果 */
+
+  .record-div {
+    width: calc(30%);
+    border: 1px solid #ccc;  
+    margin: 10px;            
+    padding: 10px;           
+    background-color: #f9f9f9;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+    
+  }
+  .suburb-div{
+    display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 20px; 
+  }
+  .suburb-div h3 {
+    flex: 1 0 100%; /* 这使p元素总是占据整个容器的宽度，即它自己独占一行 */
 }
 
-/* 鼠标悬停时的效果 */
-.record-div:hover {
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
-  transform: scale(1.02); /* 轻微放大 */
-  background-color: #fff; /* 改变背景颜色 */
-}
+  /* 鼠标悬停时的效果 */
+  .record-div:hover {
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+    transform: scale(1.02); /* 轻微放大 */
+    background-color: #fff; /* 改变背景颜色 */
+  }
 
-/* 设置记录div内部的段落样式 */
-.record-div p {
-  font-size: 14px;        /* 字体大小 */
-  margin-bottom: 5px;     /* 下边距 */
-  color: #333;            /* 字体颜色 */
-}
-}
+  /* 设置记录div内部的段落样式 */
+  .record-div p {
+    font-size: 14px;        /* 字体大小 */
+    margin-bottom: 5px;     /* 下边距 */
+    color: #333;            /* 字体颜色 */
+  }
+
+  }
 
 
 

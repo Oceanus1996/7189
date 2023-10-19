@@ -21,3 +21,19 @@ if ($re){
 }else{
     echo "<script>alert('log in fail');window.location='login.html'</script>";
 }
+
+
+session_start(); // 启动会话
+
+// 检查 Session 变量是否存在
+if (isset($_SESSION['user_json'])) {
+    // 获取用户信息
+    $user_data = json_decode($_SESSION['user_json'], true);
+
+    // 现在，$user_data 包含用户的信息，您可以在此页面上使用它。
+    echo "欢迎回来，" . $user_data['username'];
+} else {
+    // 用户未登录，执行未登录用户的操作，例如重定向到登录页面
+    header("Location: login.html");
+    exit();
+}

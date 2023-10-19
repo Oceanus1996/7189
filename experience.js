@@ -18,28 +18,28 @@
 //     });
 
 
-//     // 使用AJAX从mvp.php获取grabbed URLs
-//     $.ajax({
-//         url: 'storageData.php?action=fetch_urls',
-//         method: 'GET',
-//         dataType: 'json',
-//         success: function(data) {
-//             console.log("Fetched URLs successfully!"); 
-//             grabbed = data;
-//             console.log(data);
-//             data.forEach(function(marker){
-//                 console.log("遍历打印"+marker.grabbedMarkersCount+"url"+marker.url);
+    // 使用AJAX从mvp.php获取grabbed URLs
+    $.ajax({
+        url: 'storageData.php?action=fetch_urls',
+        method: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            console.log("Fetched URLs successfully!"); 
+            grabbed = data;
+            console.log(data);
+            data.forEach(function(marker){
+                console.log("遍历打印"+marker.grabbedMarkersCount+"url"+marker.url);
                 
-//                 displayRecordData(marker.image, marker.title,marker.url);
-//                 addEmptyCard();
-//                 grabbedMarkersCount=marker.grabbedMarkersCount;
-//                 updateHealthBar(grabbedMarkersCount);
-//             });
-//         },
-//         error: function(error) {
-//             console.error("Error fetching URLs:", error);
-//         }
-//     });
+                displayRecordData(marker.image, marker.title,marker.url);
+                addEmptyCard();
+                grabbedMarkersCount=marker.grabbedMarkersCount;
+                updateHealthBar(grabbedMarkersCount);
+            });
+        },
+        error: function(error) {
+            console.error("Error fetching URLs:", error);
+        }
+    });
 
     
     
@@ -181,11 +181,30 @@ $(document).ready(function() {
         success: function(data) {
             console.log(data)
             iterateRecords(data);
-            console.log("caption");
-            insertDataToDivs(data);
-    console.log("caption",caption);
+            insertDataToDivs(data); 
         }
-    });      
+    }); 
+    $.ajax({
+        url: 'storageData.php?action=fetch_urls',
+        method: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            console.log("Fetched URLs successfully!"); 
+            grabbed = data;
+            console.log(data);
+            data.forEach(function(marker){
+                console.log("遍历打印"+marker.grabbedMarkersCount+"url"+marker.url);
+                
+                displayRecordData(marker.image, marker.title,marker.url);
+                addEmptyCard();
+                grabbedMarkersCount=marker.grabbedMarkersCount;
+                updateHealthBar(grabbedMarkersCount);
+            });
+        },
+        error: function(error) {
+            console.error("Error fetching URLs:", error);
+        }
+    });     
 });    
 
 function createDivsForSuburbs() {
@@ -195,9 +214,19 @@ function createDivsForSuburbs() {
             id: suburb.replace(/\s+/g, '-').toLowerCase(), // 为每个div创建一个唯一ID，例如"brisbane-city"
             class: 'suburb-div', // 可选的，如果您想为这些div应用一些样式
         });
+        const  $EmptyDiv1 =  $('<div></div>', {
+            class: 'record-div', // 可选的，如果您想为这些div应用一些样式
+        });
+        const  $EmptyDiv2 =  $('<div></div>', {
+            class: 'record-div', // 可选的，如果您想为这些div应用一些样式
+        });
 
         $suburbDiv.append(`<h3>${suburb}</h3>`); // 为每个地点添加一个标题
+        // $suburbDiv.append( $EmptyDiv1);
+        // $suburbDiv.append( $EmptyDiv2);
         container.append($suburbDiv);
+        
+        
     });
 }
 
@@ -209,15 +238,17 @@ function createDivsForSuburbs() {
             // 创建一个新的div
             if (brisbaneSuburbs.includes(record.Place)) {
                 const $newDiv = $('<div></div>', {
-                    class: 'record-div'
+                    class: 'record-div',
+                    onclick: `window.location.href='${record.Url}';`
                 });
+                $newDiv.css('background-image', `linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url(${record['Primary image']})`);
                 var place = record.Place.replace(/\s+/g, '-').toLowerCase();
-                console.log(place,"place");
+
                 // 将数据插入新div中。这里是一个简单的示例，您可能需要根据具体的数据结构进行修改。
                 $newDiv.html(`
                     <p>Place: ${record.Place}</p>
-                    <p>Latitude: ${record.latitude}</p>
-                    <p>Longitude: ${record.longitude}</p>
+                    <p>Location: ${record.Latitude},${record.Longitude}</p>
+                    <p>${record.Title}</p>
                 `);
     
                 // 将新div添加到主容器中
