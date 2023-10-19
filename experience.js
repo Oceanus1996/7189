@@ -151,7 +151,6 @@ const brisbaneSuburbs = [
 ];
 function iterateRecords(data) {
     $.each(data.result.records, function(recordKey, recordValue) {
-            
        
         if(brisbaneSuburbs.includes(recordValue.Place)){
             records.push({

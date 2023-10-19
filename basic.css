@@ -1,4 +1,4 @@
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 10000px) {
 body {
   padding: 0;
   margin: 0;
@@ -297,9 +297,6 @@ footer a:hover {
         background-position: -400% 0;
     }}
 
-
-}
-
 /* basic css */
 /* 为所有的记录div设置基本样式 */
 .record-div {
@@ -324,5 +321,8 @@ footer a:hover {
   margin-bottom: 5px;     /* 下边距 */
   color: #333;            /* 字体颜色 */
 }
+}
+
+
 
 
