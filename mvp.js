@@ -112,12 +112,12 @@ function sendUrlsToServer() {
         method: "POST",
         data: {grabbed: JSON.stringify(grabbed) },
         success: function(response) {
-            //  var response = "{\"message\":\"URLs stored successfully!\",\"data\":[{\"title\":\"South East Queensland cleans up - ABC (none) - Australian Broadcasting Corporation\",\"image\":\"http:\\/\\/www.abc.net.au\\/reslib\\/201101\\/r702380_5400964.jpg\",\"url\":\"http:\\/\\/www.abc.net.au\\/local\\/photos\\/2011\\/01\\/16\\/3113930.htm\",\"grabbedMarkersCount\":1}]}"
-            $.ajax({
-                url: "save.php",
-                method: "POST", 
-                data:{datas:response},
-            })
+             var response = "{\"message\":\"URLs stored successfully!\",\"data\":[{\"title\":\"South East Queensland cleans up - ABC (none) - Australian Broadcasting Corporation\",\"image\":\"http:\\/\\/www.abc.net.au\\/reslib\\/201101\\/r702380_5400964.jpg\",\"url\":\"http:\\/\\/www.abc.net.au\\/local\\/photos\\/2011\\/01\\/16\\/3113930.htm\",\"grabbedMarkersCount\":1}]}"
+            // $.ajax({
+            //     url: "save.php",
+            //     method: "POST", 
+            //     data:{datas:response},
+            // })
             console.log("URLs stored successfully:", response);
         },
         error: function(error) {
@@ -215,11 +215,18 @@ function addPointToMap(lat, lon,recordValue) {
         var keywords = marker.marker['Keywords'];
         var images = marker.marker['Primary image'];
         console.log(place);
+		// wangji 修改了侧边信息栏信息布局
         sidebarHtml.innerHTML = `
             <img src="icon\\dragon2.png" alt="No picture" width="250">
-            <p>Memory:${caption}<p>
-            <button id="closeIcon" style="position: absolute; top: 10px; right: 10px;">X</button>
-            <p>Locaion: ${place}<br>Date: ${Date}<br>keywords: ${keywords}<br></p>
+            <p>Memory:<br><p>
+            <p class='infoText'>${caption}<p>
+            <span id="closeIcon" style="position: absolute; top: 10px; right: 10px;">X</span>
+            <p>Locaion:${place}</p>
+			<p class='infoText'>${place}<p>
+			<p>Date: </p>
+			<p class='infoText'>${Date}<p>
+			<p>keywords: </p>
+			<p class='infoText'>${keywords}<p>
             <button id="startDig">Dig</button>
             <button id="closeSidebar">Cancel</button>
         `;
@@ -362,7 +369,10 @@ function showNextNarration() {
         $(`#narration-${currentNarration}`).removeClass('hidden');
     } else {
         // 所有旁白都显示完后，隐藏按钮
-        $('#narration-container button').hide();
+		// wangji 修改
+        $('#narration-container').hide();
+        $('#dialogue-column').css('background','rgba(0,0,0,0)');
+		
     }
 }
 
