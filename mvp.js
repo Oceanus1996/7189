@@ -112,12 +112,12 @@ function sendUrlsToServer() {
         method: "POST",
         data: {grabbed: JSON.stringify(grabbed) },
         success: function(response) {
-             var response = "{\"message\":\"URLs stored successfully!\",\"data\":[{\"title\":\"South East Queensland cleans up - ABC (none) - Australian Broadcasting Corporation\",\"image\":\"http:\\/\\/www.abc.net.au\\/reslib\\/201101\\/r702380_5400964.jpg\",\"url\":\"http:\\/\\/www.abc.net.au\\/local\\/photos\\/2011\\/01\\/16\\/3113930.htm\",\"grabbedMarkersCount\":1}]}"
-            // $.ajax({
-            //     url: "save.php",
-            //     method: "POST", 
-            //     data:{datas:response},
-            // })
+            //  var response = "{\"message\":\"URLs stored successfully!\",\"data\":[{\"title\":\"South East Queensland cleans up - ABC (none) - Australian Broadcasting Corporation\",\"image\":\"http:\\/\\/www.abc.net.au\\/reslib\\/201101\\/r702380_5400964.jpg\",\"url\":\"http:\\/\\/www.abc.net.au\\/local\\/photos\\/2011\\/01\\/16\\/3113930.htm\",\"grabbedMarkersCount\":1}]}"
+            $.ajax({
+                url: "save.php",
+                method: "POST", 
+                data:{datas:response},
+            })
             console.log("URLs stored successfully:", response);
         },
         error: function(error) {

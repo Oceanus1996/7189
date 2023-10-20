@@ -194,10 +194,9 @@ $(document).ready(function() {
             console.log(data);
             data.forEach(function(marker){
                 console.log("遍历打印"+marker.grabbedMarkersCount+"url"+marker.url);
-                
-                displayRecordData(marker.image, marker.title,marker.url);
-                addEmptyCard();
-                grabbedMarkersCount=marker.grabbedMarkersCount;
+                // displayRecordData(marker.image, marker.title,marker.url);
+                // addEmptyCard();
+                // grabbedMarkersCount=marker.grabbedMarkersCount;
                 updateHealthBar(grabbedMarkersCount);
             });
         },
