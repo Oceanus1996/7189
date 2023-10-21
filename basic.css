@@ -141,21 +141,41 @@ footer a:hover {
 
 
 /* Experience页 */
-.bar{
-  margin-top: 0;
+.bar {
   height: 150px;
-  background-color: #857faf;
-  padding: 0 18px;
-  position: relative;
+  background: linear-gradient(to right, #333, #888);
+  color: #fff;
+  padding: 0;
   display: flex;
-  width: 500px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
-.bar span {
-  display: block;
-  margin-top: 5%;
-  margin-left: 10%;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+.bar .exp {
+  display: flex;
+  align-items: center;
+  font-size: 60px;
+  width: 70%;
+  margin: 0 auto; /* 水平居中对齐 */
 }
+
+.bar .level {
+  font-family: "Script MT Bold", cursive;
+  font-size: 24px;
+  margin-right: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
 .userimag{
   border-radius: 100%;
   margin-left: 5%;
