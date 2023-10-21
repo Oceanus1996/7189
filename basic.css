@@ -143,11 +143,11 @@ footer a:hover {
 /* Experience页 */
 .bar {
   height: 150px;
-  background: linear-gradient(to right, #333, #888);
+  background: linear-gradient(to right, #b9b8b8, #000000); /* 使用带有透明度的渐变背景 */
   color: #fff;
   padding: 0;
   display: flex;
-  justify-content: center;
+  justify-content: space-between; /* 靠左和靠右对齐 */
   align-items: center;
   width: 100%;
 }
@@ -156,15 +156,21 @@ footer a:hover {
   display: flex;
   align-items: center;
   font-size: 60px;
-  width: 70%;
-  margin: 0 auto; /* 水平居中对齐 */
+  width: 60%; /* 适当减小宽度 */
 }
 
 .bar .level {
   font-family: "Script MT Bold", cursive;
   font-size: 24px;
-  margin-right: 20px;
 }
+
+.dragon-image {
+  max-width: 100%; /* 设置图片的最大宽度为背景宽度 */
+  max-height: 100%; /* 设置图片的最大高度为背景高度 */
+  margin-right: 0; /* 移除右边距 */
+  margin-left: 0; /* 移除左边距，将图片放到最左边 */
+}
+
 
 
 
