@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>phoneview</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .phone-mockup {
+            position: relative;
+            width: 768px;  /* 调整为手机图片的宽度 */
+            height: 767px; /* 调整为手机图片的高度 */
+            background-image: url('path_to_your_phone_image.png');
+            background-size: cover;
+        }
+        .iframe-container {
+        position: relative;
+        height: 1000px;
+        overflow: auto;
+        }
+        .phone-mockup iframe {
+            position: absolute;
+            top: 60px;  /* 调整为从手机图像顶部到屏幕开始的距离 */
+            left: 20px; /* 调整为从手机图像左侧到屏幕开始的距离 */
+            width: 500px; /* 调整为屏幕的宽度 */
+            height: 900px; /* 调整为屏幕的高度 */
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-mockup">
+        <div class="iframe-container">
+            <iframe src="index.html"></iframe>
+        </div>
+        
+    </div>
+</body>
+</html>
