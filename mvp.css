@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@300&display=swap');
 .modal{
     display:none;
     position: fixed;
@@ -54,10 +55,70 @@
 .hidden {
     display: none;
 }
+.narration-container{
+    display: flex;
+    flex-direction: column; /* 将子元素垂直排列 */
+    align-items: flex-start;
+
+}
 
 .narration {
     transition: opacity 0.5s;
+    font-family: 'Playpen Sans', cursive;
+    font-size: 15px;
 }
+.btn{
+    display: inline-block;
+    position: fixed;
+    z-index: 1;
+    overflow: hidden;
+    text-decoration: none;
+    font-family: sans-serif;
+    font-weight: bold;  
+    font-size: 15px;  
+    padding: 0.1rem 0.5rem ;
+    color: rgb(234, 129, 24);
+    border: 0.1em solid rgb(7, 7, 159);
+    border-radius: 2em;
+    transition: 4s;
+    margin-top: 1rem;
+    margin-left: 25rem;
+}
+        .btn:before,
+        .btn:after {
+            content: "";
+            position: absolute;
+            top: -1.5em;
+            z-index: -1;
+            width: 200%;
+            aspect-ratio: 1;
+            border: none;
+            border-radius: 40%;
+            background-color: rgba(0, 0, 255, 0.25);
+            transition: 4s;
+        }
+
+        .btn:before {
+            left: -80%;
+            transform: translate3d(0, 5em, 0) rotate(-340deg);
+        }
+        .btn:after {
+            right: -80%;
+            transform: translate3d(0, 5em, 0) rotate(390deg);
+        }
+
+        .btn:hover,
+        .btn:focus {
+            color: white;
+        }
+
+        .btn:hover:before,
+        .btn:hover:after,
+        .btn:focus:before,
+        .btn:focus:after {
+            transform: none;
+            background-color: rgba(224, 110, 87, 0.75);
+        }
 
 /* 侧边栏 */
 
