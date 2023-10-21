@@ -75,7 +75,6 @@ function handleMarkerClick(url,image,marker){
         method:"POST",
         data:{urlToFetch:url},
         success:function(response){
-            console.log("在这里吗11");
             response = response.replace(/\[an error occurred while processing this directive\]/g, '');
             let $content = $(response);
             let title = $content.filter("title").text();
