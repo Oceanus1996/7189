@@ -185,32 +185,31 @@ $(document).ready(function() {
             insertDataToDivs(data);
     console.log("caption",caption);
         }
-<<<<<<< HEAD
     }); 
-    $.ajax({
-        url: 'storageData.php?action=fetch_urls',
-        method: 'GET',
-        dataType: 'json',
-        success: function(data) {
-            console.log("Fetched URLs successfully!"); 
-            grabbed = data;
-            console.log(data);
-            data.forEach(function(marker){
-                console.log("遍历打印"+marker.grabbedMarkersCount+"url"+marker.url);
-                // displayRecordData(marker.image, marker.title,marker.url);
-                // addEmptyCard();
-                // grabbedMarkersCount=marker.grabbedMarkersCount;
-                updateHealthBar(grabbedMarkersCount);
-            });
-        },
-        error: function(error) {
-            console.error("Error fetching URLs:", error);
-        }
-    });     
-=======
-    });      
->>>>>>> parent of a857813 (更新了experience，1019)
-});    
+    // $.ajax({
+    //     url: 'storageData.php?action=fetch_urls',
+    //     method: 'GET',
+    //     dataType: 'json',
+    //     success: function(data) {
+    //         console.log("Fetched URLs successfully!"); 
+    //         grabbed = data;
+    //         console.log(data);
+    //         data.forEach(function(marker){
+    //             console.log("遍历打印"+marker.grabbedMarkersCount+"url"+marker.url);
+    //             // displayRecordData(marker.image, marker.title,marker.url);
+    //             // addEmptyCard();
+    //             // grabbedMarkersCount=marker.grabbedMarkersCount;
+    //             updateHealthBar(grabbedMarkersCount);
+    //         });
+    //     },
+    //     error: function(error) {
+    //         console.error("Error fetching URLs:", error);
+    //     }
+    // });     
+
+ });      
+
+  
 
 function createDivsForSuburbs() {
     const container = $('#all-data');
@@ -240,10 +239,19 @@ function createDivsForSuburbs() {
                 // 将数据插入新div中。这里是一个简单的示例，您可能需要根据具体的数据结构进行修改。
                 $newDiv.html(`
                     <p>Place: ${record.Place}</p>
-                    <p>Latitude: ${record.latitude}</p>
-                    <p>Longitude: ${record.longitude}</p>
+                    <p>Latitude: ${record.Latitude}</p>
+                    <p>Longitude: ${record.Longitude}</p>
+                    <p>Caption: ${record['Title']}</p>
+                    <p>Caption: ${record['Place']}</p>
+                
                 `);
-    
+                $newDiv.css({
+                    "background-image": `url(${record['Primary image']})`,
+                    "background-size": "cover",
+                    "background-repeat": "no-repeat" ,
+                    
+                });
+                
                 // 将新div添加到主容器中
                 $("#" + place).append($newDiv);
             }
