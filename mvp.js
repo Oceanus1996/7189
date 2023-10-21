@@ -244,9 +244,9 @@ function addPointToMap(lat, lon,recordValue) {
         // 添加新的侧边栏到body
         document.getElementById("map").appendChild(sidebarHtml);
         
-        // const audio = document.getElementById("sidebarAudio");
-        // // 播放音效
-        // audio.play();
+        const audio = document.getElementById("sidebarAudio");
+        // 播放音效
+        audio.play();
     
         document.getElementById("startDig").addEventListener('click', function() {
             if (typeof callback === "function") {
@@ -254,16 +254,16 @@ function addPointToMap(lat, lon,recordValue) {
             }
             clickedMarker.closePopup();
             clickedMarker.unbindPopup();
-            // 停止音效并重置播放位置
-            // audio.pause();
-            // audio.currentTime = 0;
+            停止音效并重置播放位置
+            audio.pause();
+            audio.currentTime = 0;
         });
     
         document.getElementById('closeSidebar').addEventListener('click', function() {
             const sidebar = document.getElementById('sidebar');
             document.getElementById("map").removeChild(sidebar);
-            // audio.pause();
-            // audio.currentTime = 0;
+            audio.pause();
+            audio.currentTime = 0;
         });
     } 
 
