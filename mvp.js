@@ -19,6 +19,8 @@ var grabbed=[];
 //全局变量血条计数
 var grabbedMarkersCount = 0;
 var grabbedMarkers=0;
+//全局
+var storeData=[];
 //标签的click事件
 function openModal(){
     modal.style.display ="block";
@@ -80,7 +82,15 @@ function handleMarkerClick(url,image,marker){
             let title = $content.filter("title").text();
             let textContent = $content.find('div#page > div#main > div#col1 > div#col1_content > div.module.content_12col > div.container > div.story > div.story_body.description').text();
             displayRecordData(textContent,image,title);
-            
+            var markerExistsInStoreData =storeData.includes(marker.recordValue);
+            console.log("marker.recordValue",marker.recordValue);   
+            if (markerExistsInStoreData) {
+                isGrab=true;
+
+            } else {
+                isGrab=false;
+                storedata.push(marker.recordValue);
+            }
             //血条计数 
             if(!isGrab){
                 grabbedMarkersCount++;
