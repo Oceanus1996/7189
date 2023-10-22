@@ -36,40 +36,21 @@
         </div>
         <img src="Killdragon.png" alt="屠龙" class="dragon-image"> <!-- 添加图片元素 -->
       </div>
-      <div id="all-data"></div>
-      
-      
-
+       
     </div>
-
-    <!-- 图鉴
-<div class="big-container">
-        <div class="container empty">
-            <div class="card">
-                <div class="imgBx">
-                    <img src="icon/locked.png" alt="">
-                </div>
-                <div class="content">
-                    <h2></h2>
-                    <p></p>
-                </div>
-            </div>
-        </div>
-        <div class="container empty">
-          <div class="card">
-              <div class="imgBx">
-                  <img src="icon/locked.png" alt="">
-              </div>
-              <div class="content">
-                  <h2></h2>
-                  <p></p>
-              </div>
-          </div>
+    <div id="filters">
+      <!-- 勾选框筛选 -->
+      <select id="statusFilter">
+          <option value="all">全部</option>
+          <option value="unlocked">已解锁的</option>
+          <option value="locked">未解锁的</option>
+      </select>
+      
+      <!-- 地区输入框 --> 
+      <input type="text" id="regionFilter" placeholder="输入地区...">
+      <button id="searchRegion">搜索</button>
       </div>
-
-
-</div> -->
-
+    <div id="all-data"></div>
 
 <script src="experience.js"></script>
 <script src="basic.js"></script>

@@ -8,4 +8,5 @@ if(isset($_POST['urlToFetch'])){
     $content = file_get_contents($url);
     echo $content;
 }
+
 ?>

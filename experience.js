@@ -1,48 +1,4 @@
-// //全局变量markerArray
-// var grabbed=[]
-// var grabbedMarkersCount=0;
-// // 玩家
-// let playerLevel = 1;
-// const EXPERIENCE_TO_LEVEL_UP = 3; // 每3经验点升级
 
-// //页面加载完成后
-// $(document).ready(function() {
-//     console.log("Document is ready!");
-//     //从basic.js移植
-//     let cards = document.querySelectorAll('.container .card');
-//     cards.forEach(card => {
-//         card.addEventListener('click', function() {
-//         card.classList.remove('locked');
-//             card.classList.add('unlocked');
-//         });
-//     });
-
-
-//     // 使用AJAX从mvp.php获取grabbed URLs
-//     $.ajax({
-//         url: 'storageData.php?action=fetch_urls',
-//         method: 'GET',
-//         dataType: 'json',
-//         success: function(data) {
-//             console.log("Fetched URLs successfully!"); 
-//             grabbed = data;
-//             console.log(data);
-//             data.forEach(function(marker){
-//                 console.log("遍历打印"+marker.grabbedMarkersCount+"url"+marker.url);
-                
-//                 displayRecordData(marker.image, marker.title,marker.url);
-//                 addEmptyCard();
-//                 grabbedMarkersCount=marker.grabbedMarkersCount;
-//                 updateHealthBar(grabbedMarkersCount);
-//             });
-//         },
-//         error: function(error) {
-//             console.error("Error fetching URLs:", error);
-//         }
-//     });
-
-    
-    
 // });
 // function displayRecordData( image, title,url) {
 //     // 1. 找到第一个空白的卡片
@@ -143,26 +99,27 @@
 
 
 //先从js里找到所有brisbane的，把他们列出来，然后排列，然后解锁，然后干
-const records= [];
+var records= [];
+var all_data =[];
 const brisbaneSuburbs = [
     "Brisbane","Brisbane-City","South Brisbane", "West End","Fortitude Valley","Woolloongabba","Indooroopilly",
     ,"Toowong","Chermside","Fairfield", "Milton","South Bank", "Wynnum", "Lytton",
     "Albion","Bowen Hills"
 ];
-function iterateRecords(data) {
-    $.each(data.result.records, function(recordKey, recordValue) {
+// function iterateRecords(data) {
+//     $.each(data.result.records, function(recordKey, recordValue) {
        
-        if(brisbaneSuburbs.includes(recordValue.Place)){
-            records.push({
-                place: recordValue.Place,
-                latitude: recordValue.latitude,
-                longitude: recordValue.longitude
-            });
-        }
+//         if(brisbaneSuburbs.includes(recordValue.Place)){
+//             records.push({
+//                 place: recordValue.Place,
+//                 latitude: recordValue.latitude,
+//                 longitude: recordValue.longitude
+//             });
+//         }
         
-    }
-)
-}
+//     }
+// )
+// }
 
 $(document).ready(function() {
 
@@ -173,40 +130,43 @@ $(document).ready(function() {
     createDivsForSuburbs();
 
 //输入坐标增加标记
+$.when(
     $.ajax({
         url: "https://data.gov.au/data/api/3/action/datastore_search", // if the dataset is coming from a different data portal, change the url (i.e. data.gov.au)
         data: data,
         dataType: "jsonp", // We use "jsonp" to ensure AJAX works correctly locally (otherwise XSS).
         cache: true,
         success: function(data) {
-            console.log(data)
-            iterateRecords(data);
-            console.log("caption");
+            // iterateRecords(data);
             insertDataToDivs(data);
-    console.log("caption",caption);
         }
-    }); 
-    // $.ajax({
-    //     url: 'storageData.php?action=fetch_urls',
-    //     method: 'GET',
-    //     dataType: 'json',
-    //     success: function(data) {
-    //         console.log("Fetched URLs successfully!"); 
-    //         grabbed = data;
-    //         console.log(data);
-    //         data.forEach(function(marker){
-    //             console.log("遍历打印"+marker.grabbedMarkersCount+"url"+marker.url);
-    //             // displayRecordData(marker.image, marker.title,marker.url);
-    //             // addEmptyCard();
-    //             // grabbedMarkersCount=marker.grabbedMarkersCount;
-    //             updateHealthBar(grabbedMarkersCount);
-    //         });
-    //     },
-    //     error: function(error) {
-    //         console.error("Error fetching URLs:", error);
-    //     }
-    // });     
-
+    }),
+        // 使用AJAX从mvp.php获取grabbed URLs
+        $.ajax({
+            url: 'storageData.php',
+            method: 'POST',
+            data: { action: 'fetch_urls' },
+            dataType: 'json',
+            success: function(data) {
+                records=data;
+                console.log("你成功了吗",records);
+                console.log("Fetched URLs successfully!"); 
+                grabbed = data;
+                console.log(data);
+                displayDivsByIds(records);
+                
+            },
+            error: function(error) {
+                console.error("Error fetching URLs:", error);
+            }
+        })
+        ).done(function(firstAjaxResponse, secondAjaxResponse) {
+            insertDataToDivs(firstAjaxResponse[0]);
+    
+        var records = secondAjaxResponse[0];
+        displayDivsByIds(records);
+            });
+            
  });      
 
   
@@ -216,7 +176,8 @@ function createDivsForSuburbs() {
     brisbaneSuburbs.forEach(suburb => {
         const $suburbDiv = $('<div></div>', {
             id: suburb.replace(/\s+/g, '-').toLowerCase(), // 为每个div创建一个唯一ID，例如"brisbane-city"
-            class: 'suburb-div', // 可选的，如果您想为这些div应用一些样式
+            class: 'suburb-div',
+            
         });
 
         $suburbDiv.append(`<h3>${suburb}</h3>`); // 为每个地点添加一个标题
@@ -230,12 +191,14 @@ function createDivsForSuburbs() {
         
         data.result.records.forEach(function(record) {
             // 创建一个新的div
+            var urlId=convertUrlToId(record['URL']);
             if (brisbaneSuburbs.includes(record.Place)) {
                 const $newDiv = $('<div></div>', {
-                    class: 'record-div'
+                    class: 'record-div',
+                    id: urlId,
                 });
                 var place = record.Place.replace(/\s+/g, '-').toLowerCase();
-                console.log(place,"place");
+                all_data.push(urlId);
                 // 将数据插入新div中。这里是一个简单的示例，您可能需要根据具体的数据结构进行修改。
                 $newDiv.html(`
                     <p>Place: ${record.Place}</p>
@@ -249,7 +212,7 @@ function createDivsForSuburbs() {
                     "background-image": `url(${record['Primary image']})`,
                     "background-size": "cover",
                     "background-repeat": "no-repeat" ,
-                    
+                    "display":"none",
                 });
                 
                 // 将新div添加到主容器中
@@ -258,4 +221,70 @@ function createDivsForSuburbs() {
             
         });
     }
+  
+    //显示我已经成功解锁的
+    function displayDivsByIds(idsArray) {
+        idsArray.forEach(function(divId) {
+            console.log("成功运作了吗",divId,convertUrlToId(divId));
+            $("#" + convertUrlToId(divId)).css('display', 'block');
+        });
+    }
+    //解锁unlock
+    function displayUnlocked(idsArray, allARRAY) {
+        allARRAY.forEach(function(divId) {
+            var convertedId = convertUrlToId(divId);
+    
+            if(idsArray.includes(divId)) {
+                // 如果divId在idsArray中，将其隐藏
+                $("#" + convertedId).css('display', 'none');
+            } else {
+                // 如果divId不在idsArray中但在allARRAY中，将其显示
+                $("#" + convertedId).css('display', 'block');
+                console.log("成功运作了吗", divId, convertedId);
+            }
+        });
+    }
+    
+//去掉特殊符号
+function convertUrlToId(url) {
+    return url.replace(/[^a-zA-Z0-9]/g, "_");
+}
 
+function applyStatusFilter() {
+    var filterValue = $("#statusFilter").val();
+    if (filterValue == "all") {
+        $(".record-div").show();  // 显示所有div
+    } else if (filterValue == "unlocked") {
+        $(".record-div").hide();  // 首先隐藏所有div
+        displayDivsByIds(records); 
+    } else if (filterValue == "locked") {
+        $(".record-div").hide();  // 首先隐藏所有div
+        displayUnlocked(records,all_data);
+    }
+}
+function applyRegionFilter() {
+    var regionValue = $("#regionFilter").val().toLowerCase();
+
+    if (regionValue) {
+        $(".suburb-div").each(function() {
+            var divPlaceName = $(this).find('p').first().text().split(': ')[1].toLowerCase();
+
+            if (divPlaceName.includes(regionValue)) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    } else {
+        $(".suburb-div").show();  // 如果输入框为空，则显示所有div
+    }
+}
+
+
+$(document).ready(function() {
+    // 监听勾选框的变化
+    $("#statusFilter").change(applyStatusFilter);
+
+    // 监听搜索按钮点击
+    $("#searchRegion").click(applyRegionFilter);
+});

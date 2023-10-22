@@ -21,6 +21,8 @@ var grabbedMarkersCount = 0;
 var grabbedMarkers=0;
 //全局
 var storeData=[];
+//username
+var userName;
 //标签的click事件
 function openModal(){
     modal.style.display ="block";
@@ -82,14 +84,14 @@ function handleMarkerClick(url,image,marker){
             let title = $content.filter("title").text();
             let textContent = $content.find('div#page > div#main > div#col1 > div#col1_content > div.module.content_12col > div.container > div.story > div.story_body.description').text();
             displayRecordData(textContent,image,title);
-            var markerExistsInStoreData =storeData.includes(marker.recordValue);
-            console.log("marker.recordValue",marker.recordValue);   
+            var markerExistsInStoreData =storeData.includes(marker.recordData);
+            console.log("marker.recordValue",marker.recordData);   
             if (markerExistsInStoreData) {
                 isGrab=true;
-
             } else {
                 isGrab=false;
-                storedata.push(marker.recordValue);
+        
+                storeData.push(marker.recordData);
             }
             //血条计数 
             if(!isGrab){
@@ -104,11 +106,8 @@ function handleMarkerClick(url,image,marker){
                     grabbedMarkersCount:grabbedMarkers
                 };            
                 grabbed.push(object);
-                console.log("grabbed"+grabbed);
-
             } else {
             }
-            marker.isGrab = true;
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.error("Error fetching data:", textStatus, errorThrown);
@@ -116,35 +115,45 @@ function handleMarkerClick(url,image,marker){
     });
 }
 
-// 保存数据并发送给experience
-// function sendUrlsToServer() {
-//     $.ajax({
-//         url: "storageData.php",
-//         method: "POST",
-//         data: {grabbed: JSON.stringify(grabbed) },
-//         success: function(response) {
-// <<<<<<< HEAD
-//             //  var response = "{\"message\":\"URLs stored successfully!\",\"data\":[{\"title\":\"South East Queensland cleans up - ABC (none) - Australian Broadcasting Corporation\",\"image\":\"http:\\/\\/www.abc.net.au\\/reslib\\/201101\\/r702380_5400964.jpg\",\"url\":\"http:\\/\\/www.abc.net.au\\/local\\/photos\\/2011\\/01\\/16\\/3113930.htm\",\"grabbedMarkersCount\":1}]}"
-//             $.ajax({
-//                 url: "save.php",
-//                 method: "POST", 
-// =======
-//             // var response = "{\"message\":\"URLs stored successfully!\",\"data\":[{\"title\":\"South East Queensland cleans up - ABC (none) - Australian Broadcasting Corporation\",\"image\":\"http:\\/\\/www.abc.net.au\\/reslib\\/201101\\/r702380_5400964.jpg\",\"url\":\"http:\\/\\/www.abc.net.au\\/local\\/photos\\/2011\\/01\\/16\\/3113930.htm\",\"grabbedMarkersCount\":1}]}"
-//             $.ajax({
-//                 url: "save.php",
-//                 method: "POST",
-// >>>>>>> parent of a857813 (更新了experience，1019)
-//                 data:{datas:response},
-//             })
-//             console.log("URLs stored successfully:", response);
-//         },
-//         error: function(error) {
-//             console.error("Error storing URLs:", error);
-//         }
-//     });
-// }
+//session
+function sendUrlsToServer(username) {
+    $.ajax({
+        url: "storageData.php",
+        method: "POST",
+        data: {
+            action: "store",
+            username: username,
+            storeData: JSON.stringify(storeData)
+        },
+        success: function(response) {
+           console.log("Data stored successfully:", response);
+        },
+        error: function(error) {
+            console.error("Error storing data:", error);
+        }
+    });
+}
+
+function retrieveUrlsFromServer() {
+    $.ajax({
+        url: "storageData.php",
+        method: "POST",
+        data: {
+            action: "retrieve"
+        },
+        success: function(response) {
+            let retrievedData = JSON.parse(response);
+            console.log("Data retrieved successfully:", retrievedData);
+        },
+        error: function(error) {
+            console.error("Error retrieving data:", error);
+        }
+    });
+}
+
+
 // // 定时保存，每3秒
-// setInterval(sendUrlsToServer, 3*1000);
+setInterval(sendUrlsToServer, 3*1000);
 
 //加标记点的文档
 function addPointToMap(lat, lon,recordValue) {
@@ -254,7 +263,7 @@ function addPointToMap(lat, lon,recordValue) {
             }
             clickedMarker.closePopup();
             clickedMarker.unbindPopup();
-            停止音效并重置播放位置
+            //停止音效并重置播放位置
             audio.pause();
             audio.currentTime = 0;
         });
@@ -410,3 +419,26 @@ function congrateNarration() {
 //     let audio = document.getElementById("myAudio");
 //     audio.play();
 // }
+
+function fetchUsername() {
+    $.ajax({
+        url: 'username.php',
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            if (data && data.username) {
+                userName = data.username; // 更新全局变量
+                console.log("欢迎, " + username + "!", "user");
+                // 使用用户名更新页面内容
+                document.getElementById("customer").innerText = "欢迎, " + userName + "!";
+            } else {
+                // 处理错误或者用户未登录的情况
+                alert('请先登录!');
+            }
+        },
+        error: function() {
+            // 当请求失败时的处理
+            alert('发生错误，请稍后再试。');
+        }
+    });
+}
