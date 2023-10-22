@@ -1,103 +1,4 @@
 
-// });
-// function displayRecordData( image, title,url) {
-//     // 1. 找到第一个空白的卡片
-//     let emptyCard = document.querySelector(".big-container .container.empty");
-//     if (!emptyCard) {
-//         console.error("No empty card found!");
-//         return;
-//     }
-
-//     // 2. 填充数据到这个空白的卡片
-//     let imgBox = emptyCard.querySelector(".imgBx img");
-//     let contentBox = emptyCard.querySelector(".content");
-//     if (imgBox && contentBox) {
-//         imgBox.src = image;
-
-//         // let titleElem = contentBox.querySelector("h2");
-//         // let textElem = contentBox.querySelector("p");
-        
-//     // 创建超链接部分
-//     let newLink = document.createElement("a");
-//     newLink.href = url;  // 设置超链接的目标
-//     newLink.textContent = title;  // flex使用传入的textContent参数作为链接文本
-//     contentBox.appendChild(newLink);
-//          // 显示这个卡片
-//          emptyCard.style.display = 'flex';  // 这里将卡片设置为显示状态
-//          console.log(emptyCard.style.display+"这里将卡片设置为显示状态" );
-
-//     // Remove the 'empty' class as this card is no longer empty
-//     emptyCard.classList.remove('empty');
-//     }
-// }
-
-// //创建新的空白卡片
-// function addEmptyCard() {
-//     // 获取大的容器
-//     console.log("测试真的家没有");
-//     let bigContain = document.querySelector(".big-container");
-//     console.log("bigContain"+bigContain);
-
-//     // 创建一个新的container
-//     let newContainer = document.createElement('div');
-//     newContainer.className = 'container empty';
-//     // newContainer.style.display = 'none';  // 默认设置为隐藏
-
-//     // 创建card元素
-//     let card = document.createElement('div');
-//     card.className = 'card';
-
-//     // 创建imgBx元素并其中的img元素
-//     let imgBx = document.createElement('div');
-//     imgBx.className = 'imgBx';
-//     let img = document.createElement('img');
-//     img.src = "icon/locked.png";
-//     img.alt = "";
-//     imgBx.appendChild(img);
-//     card.appendChild(imgBx);
-
-//     // 创建content元素并其中的h2和p元素
-//     let content = document.createElement('div');
-//     content.className = 'content';
-//     let h2 = document.createElement('h2');
-//     let p = document.createElement('p');
-//     content.appendChild(h2);
-//     content.appendChild(p);
-//     card.appendChild(content);
-
-//     // 将card元素添加到newContainer中
-//     newContainer.appendChild(card);
-
-//     // 将新创建的容器添加到大容器中
-//     bigContain.appendChild(newContainer);
-//     console.log("测试真的家没有"+newContainer);
-//      // 重新绑定点击事件
-//     let newCard = newContainer.querySelector('.card');
-//     newCard.addEventListener('click', function() {
-//         newCard.classList.remove('locked');
-//         newCard.classList.add('unlocked');
-//     });
-      
-// }
-
-// //update 血条
-// function updateHealthBar(){
-//     let experiencePercentage = (grabbedMarkersCount / EXPERIENCE_TO_LEVEL_UP) * 100;
-
-//     // 更新经验条的宽度
-//     document.querySelector('.progress').style.width = experiencePercentage + '%';
-
-//     // 判断是否升级
-//     if (grabbedMarkersCount >= EXPERIENCE_TO_LEVEL_UP) {
-//         playerLevel++;
-//         grabbedMarkersCount = 0;
-//         document.querySelector('.level').textContent = 'Level' + playerLevel;
-//         document.querySelector('.progress').style.width = '0%'; // 经验条归零
-//     }
-    
-// };
-
-
 //先从js里找到所有brisbane的，把他们列出来，然后排列，然后解锁，然后干
 var records= [];
 var all_data =[];
@@ -106,20 +7,6 @@ const brisbaneSuburbs = [
     ,"Toowong","Chermside","Fairfield", "Milton","South Bank", "Wynnum", "Lytton",
     "Albion","Bowen Hills"
 ];
-// function iterateRecords(data) {
-//     $.each(data.result.records, function(recordKey, recordValue) {
-       
-//         if(brisbaneSuburbs.includes(recordValue.Place)){
-//             records.push({
-//                 place: recordValue.Place,
-//                 latitude: recordValue.latitude,
-//                 longitude: recordValue.longitude
-//             });
-//         }
-        
-//     }
-// )
-// }
 
 $(document).ready(function() {
 
@@ -160,116 +47,127 @@ $.when(
                 console.error("Error fetching URLs:", error);
             }
         })
-        ).done(function(firstAjaxResponse, secondAjaxResponse) {
+        ).always(function(firstAjaxResponse, secondAjaxResponse) {
+            console.log("这里进来了吗");
             insertDataToDivs(firstAjaxResponse[0]);
-    
-        var records = secondAjaxResponse[0];
-        displayDivsByIds(records);
+            var records = secondAjaxResponse[0];
+            displayDivsByIds(records);
+            //     // 监听勾选框的变化
+            // $("#statusFilter").change(applyStatusFilter);
+
+            // // 监听搜索按钮点击
+            // $("#searchRegion").click(applyRegionFilter);
             });
+
             
  });      
 
-  
 
 function createDivsForSuburbs() {
     const container = $('#all-data');
     brisbaneSuburbs.forEach(suburb => {
+        const suburbId = suburb.replace(/\s+/g, '-').toLowerCase(); // 创建 suburb 的唯一 ID
         const $suburbDiv = $('<div></div>', {
-            id: suburb.replace(/\s+/g, '-').toLowerCase(), // 为每个div创建一个唯一ID，例如"brisbane-city"
-            class: 'suburb-div',
-            
+            id: suburbId,
+            class: 'suburb-div'
         });
 
-        $suburbDiv.append(`<h3>${suburb}</h3>`); // 为每个地点添加一个标题
+        const $suburbSection = $('<section></section>', {
+            class: 'tiles'
+        });
+
+        $suburbDiv.append(`<h3>${suburb}</h3>`);
+        $suburbDiv.append($suburbSection); // 将 section 添加到 suburb div
         container.append($suburbDiv);
     });
 }
-
-
-    //插入子div
-    function insertDataToDivs(data) {
-        
-        data.result.records.forEach(function(record) {
-            // 创建一个新的div
-            var urlId=convertUrlToId(record['URL']);
-            if (brisbaneSuburbs.includes(record.Place)) {
-                const $newDiv = $('<div></div>', {
-                    class: 'record-div',
-                    id: urlId,
-                });
-                var place = record.Place.replace(/\s+/g, '-').toLowerCase();
-                all_data.push(urlId);
-                // 将数据插入新div中。这里是一个简单的示例，您可能需要根据具体的数据结构进行修改。
-                $newDiv.html(`
-                    <p>Place: ${record.Place}</p>
-                    <p>Latitude: ${record.Latitude}</p>
-                    <p>Longitude: ${record.Longitude}</p>
-                    <p>Caption: ${record['Title']}</p>
-                    <p>Caption: ${record['Place']}</p>
-                
-                `);
-                $newDiv.css({
-                    "background-image": `url(${record['Primary image']})`,
-                    "background-size": "cover",
-                    "background-repeat": "no-repeat" ,
-                    "display":"none",
-                });
-                
-                // 将新div添加到主容器中
-                $("#" + place).append($newDiv);
-            }
+function insertDataToDivs(data) {
+    data.result.records.forEach(function(record) {
+    var urlId=convertUrlToId(record['URL']);
+        if (brisbaneSuburbs.includes(record.Place)) {
+            const suburbId = record.Place.replace(/\s+/g, '-').toLowerCase();
+            const $suburbSection = $("#" + suburbId + " .tiles");
+            all_data.push(urlId);
+            let imageUrl = record['Primary image'];
             
-        });
-    }
-  
-    //显示我已经成功解锁的
-    function displayDivsByIds(idsArray) {
-        idsArray.forEach(function(divId) {
-            console.log("成功运作了吗",divId,convertUrlToId(divId));
-            $("#" + convertUrlToId(divId)).css('display', 'block');
-        });
-    }
-    //解锁unlock
-    function displayUnlocked(idsArray, allARRAY) {
-        allARRAY.forEach(function(divId) {
-            var convertedId = convertUrlToId(divId);
-    
-            if(idsArray.includes(divId)) {
-                // 如果divId在idsArray中，将其隐藏
-                $("#" + convertedId).css('display', 'none');
-            } else {
-                // 如果divId不在idsArray中但在allARRAY中，将其显示
-                $("#" + convertedId).css('display', 'block');
-                console.log("成功运作了吗", divId, convertedId);
-            }
-        });
-    }
-    
-//去掉特殊符号
-function convertUrlToId(url) {
-    return url.replace(/[^a-zA-Z0-9]/g, "_");
-}
+            checkImgExists(imageUrl).then(() => {
 
+                addArticleToSection($suburbSection, imageUrl, record);
+            }).catch(() => {
+
+                imageUrl = "icon\\ceshi.png";
+                addArticleToSection($suburbSection, imageUrl, record);
+            });
+        }
+    });
+}  
+
+function addArticleToSection($section, imageUrl, record) {
+    const articleId = convertUrlToId(record.URL); 
+    const $newArticle = $('<article></article>', {
+        class: 'style1',
+        id: articleId, // 为文章设置ID
+    }).append(
+        $('<span></span>', {
+            class: 'image', 
+        }).append(
+            $('<img>', {
+                src: imageUrl,
+                alt: '',
+            })
+        ),
+        $('<a></a>', {
+            href: record.URL
+        }).append(
+            $('<h2></h2>').text(record['Title']),
+            $('<div></div>', {
+                class: 'content'
+            }).append(
+                $('<p></p>').text("Longitude:" + record.Longitude + ', ' + "Latitude:" + record.Latitude)
+            )
+        )
+    );
+    $section.append($newArticle); // 将 article 添加到对应 suburb 的 section
+}
+    
+function checkImgExists(imgUrl){
+    return new Promise(function(resolve, reject){
+        var ImgObj = new Image();
+        ImgObj.src = imgUrl;
+        ImgObj.onload = function(res){
+            resolve(res);
+        };
+        ImgObj.onerror = function(err){
+            reject(err);
+        };
+    })
+}
 function applyStatusFilter() {
-    var filterValue = $("#statusFilter").val();
-    if (filterValue == "all") {
-        $(".record-div").show();  // 显示所有div
-    } else if (filterValue == "unlocked") {
-        $(".record-div").hide();  // 首先隐藏所有div
-        displayDivsByIds(records); 
-    } else if (filterValue == "locked") {
-        $(".record-div").hide();  // 首先隐藏所有div
-        displayUnlocked(records,all_data);
+    const filterValue = $("#statusFilter").val();
+    switch (filterValue) {
+        case "all":
+            $(".record-div").show();
+            break;
+        case "unlocked":
+            $(".record-div").hide();
+            displayDivsByIds(records);
+            break;
+        case "locked":
+            $(".record-div").hide();
+            displayUnlocked(records, all_data);
+            break;
+        default:
+            $(".record-div").show();  // 默认显示所有div
+            break;
     }
 }
-function applyRegionFilter() {
-    var regionValue = $("#regionFilter").val().toLowerCase();
 
+function applyRegionFilter() {
+    const regionValue = $("#regionFilter").val().toLowerCase();
     if (regionValue) {
         $(".suburb-div").each(function() {
-            var divPlaceName = $(this).find('p').first().text().split(': ')[1].toLowerCase();
-
-            if (divPlaceName.includes(regionValue)) {
+            const suburbName = $(this).attr('id'); // 使用div的id来获取suburb名字
+            if (suburbName.includes(regionValue)) {
                 $(this).show();
             } else {
                 $(this).hide();
@@ -279,7 +177,52 @@ function applyRegionFilter() {
         $(".suburb-div").show();  // 如果输入框为空，则显示所有div
     }
 }
+function displayUnlocked(lockedIds, allIds) {
+    allIds.forEach(function(id) {
+        const convertedId = convertUrlToId(id);
 
+        if (lockedIds.includes(id)) {
+            // 如果id在lockedIds中，将其隐藏
+            $("#" + convertedId).hide();
+        } else {
+            // 如果id不在lockedIds中，将其显示
+            $("#" + convertedId).show();
+        }
+    });
+}
+
+//显示我已经成功解锁的
+function displayDivsByIds(idsArray) {
+    // 首先隐藏所有的项
+    $(".style1").hide(); 
+
+    // 遍历idsArray，显示对应的项
+    idsArray.forEach(function(id) {
+        const convertedId = convertUrlToId(id);
+        $("#" + convertedId).show();
+    });
+}
+
+// //解锁unlock
+// function displayUnlocked(idsArray, allARRAY) {
+//     allARRAY.forEach(function(divId) {
+//         var convertedId = convertUrlToId(divId);
+
+//         if(idsArray.includes(divId)) {
+//             // 如果divId在idsArray中，将其隐藏
+//             $("#" + convertedId).css('display', 'none');
+//         } else {
+//             // 如果divId不在idsArray中但在allARRAY中，将其显示
+//             $("#" + convertedId).css('display', 'block');
+//             console.log("成功运作了吗", divId, convertedId);
+//         }
+//     });
+// }
+
+// //去掉特殊符号
+function convertUrlToId(url) {
+    return url.replace(/[^a-zA-Z0-9]/g, "_");
+}
 
 $(document).ready(function() {
     // 监听勾选框的变化

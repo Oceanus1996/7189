@@ -99,6 +99,7 @@ function handleMarkerClick(url,image,marker){
             var markerExistsInStoreData =storeData.includes(marker.recordData);
             console.log("marker.recordValue",marker.recordData);   
             if (markerExistsInStoreData) {
+                console.log("真的有用吗");
                 isGrab=true;
             } else {
                 isGrab=false;
