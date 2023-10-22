@@ -1,7 +1,24 @@
-
-//先从js里找到所有brisbane的，把他们列出来，然后排列，然后解锁，然后干
 var records= [];
 var all_data =[];
+
+//先从js里找到所有brisbane的，把他们列出来，然后排列，然后解锁，然后干
+
+function updateHealthBar(){
+    var grabbedMarkersCount=records.length;   
+    let experiencePercentage = (grabbedMarkersCount / 3) * 100;
+
+    // 更新经验条的宽度
+    document.querySelector('.progress').style.width = experiencePercentage + '%';
+
+    // 判断是否升级
+    if (grabbedMarkersCount >= 3) {
+        playerLevel++;
+        grabbedMarkersCount = 0;
+        document.querySelector('.level').textContent = 'Level' + playerLevel;
+        document.querySelector('.progress').style.width = '0%'; // 经验条归零
+    }
+    
+};
 const brisbaneSuburbs = [
     "Brisbane","Brisbane-City","South Brisbane", "West End","Fortitude Valley","Woolloongabba","Indooroopilly",
     ,"Toowong","Chermside","Fairfield", "Milton","South Bank", "Wynnum", "Lytton",
@@ -23,8 +40,7 @@ $.when(
         data: data,
         dataType: "jsonp", // We use "jsonp" to ensure AJAX works correctly locally (otherwise XSS).
         cache: true,
-        success: function(data) {
-            // iterateRecords(data);
+        success: function(data) {;
             insertDataToDivs(data);
         }
     }),
@@ -36,12 +52,10 @@ $.when(
             dataType: 'json',
             success: function(data) {
                 records=data;
-                console.log("你成功了吗",records);
                 console.log("Fetched URLs successfully!"); 
                 grabbed = data;
-                console.log(data);
+                updateHealthBar();
                 displayDivsByIds(records);
-                
             },
             error: function(error) {
                 console.error("Error fetching URLs:", error);
@@ -52,11 +66,6 @@ $.when(
             insertDataToDivs(firstAjaxResponse[0]);
             var records = secondAjaxResponse[0];
             displayDivsByIds(records);
-            //     // 监听勾选框的变化
-            // $("#statusFilter").change(applyStatusFilter);
-
-            // // 监听搜索按钮点击
-            // $("#searchRegion").click(applyRegionFilter);
             });
 
             
@@ -71,7 +80,6 @@ function createDivsForSuburbs() {
             id: suburbId,
             class: 'suburb-div'
         });
-
         const $suburbSection = $('<section></section>', {
             class: 'tiles'
         });
@@ -84,7 +92,7 @@ function createDivsForSuburbs() {
 function insertDataToDivs(data) {
     data.result.records.forEach(function(record) {
     var urlId=convertUrlToId(record['URL']);
-        if (brisbaneSuburbs.includes(record.Place)) {
+        if (brisbaneSuburbs.includes(record.Place)&&!all_data.includes(urlId)) {
             const suburbId = record.Place.replace(/\s+/g, '-').toLowerCase();
             const $suburbSection = $("#" + suburbId + " .tiles");
             all_data.push(urlId);
@@ -202,22 +210,6 @@ function displayDivsByIds(idsArray) {
         $("#" + convertedId).show();
     });
 }
-
-// //解锁unlock
-// function displayUnlocked(idsArray, allARRAY) {
-//     allARRAY.forEach(function(divId) {
-//         var convertedId = convertUrlToId(divId);
-
-//         if(idsArray.includes(divId)) {
-//             // 如果divId在idsArray中，将其隐藏
-//             $("#" + convertedId).css('display', 'none');
-//         } else {
-//             // 如果divId不在idsArray中但在allARRAY中，将其显示
-//             $("#" + convertedId).css('display', 'block');
-//             console.log("成功运作了吗", divId, convertedId);
-//         }
-//     });
-// }
 
 // //去掉特殊符号
 function convertUrlToId(url) {
