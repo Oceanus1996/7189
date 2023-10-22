@@ -4,6 +4,7 @@ body {
   margin: 0;
   height: 100vh; /* vh 代表视口高度，100vh 即为浏览器窗口的100%高度 */
   /* overflow-y: hidden; 隐藏垂直滚动条 */
+  background-color: #000;
 }
 
 /* Adventure页 */
