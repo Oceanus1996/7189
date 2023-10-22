@@ -30,6 +30,9 @@ function openModal(){
 // 玩家
 let playerLevel = 1;
 const EXPERIENCE_TO_LEVEL_UP = 3; // 每3经验点升级
+//玩家
+var currentNarration=0;
+var currentCongration=0;
 
 
 //close按钮
@@ -82,7 +85,16 @@ function handleMarkerClick(url,image,marker){
             response = response.replace(/\[an error occurred while processing this directive\]/g, '');
             let $content = $(response);
             let title = $content.filter("title").text();
-            let textContent = $content.find('div#page > div#main > div#col1 > div#col1_content > div.module.content_12col > div.container > div.story > div.story_body.description').text();
+            let textContent = $content.find('div#page > ' +
+                                'div#main > ' +
+                                'div#col1 > ' +
+                                'div#col1_content > ' +
+                                'div.module.content_12col > ' +
+                                'div.container > ' +
+                                'div.story > ' +
+                                'div.story_body.description').text();
+
+            // let textContent = $content.find('div#page > div#main > div#col1 > div#col1_content > div.module.content_12col > div.container > div.story > div.story_body.description').text();
             displayRecordData(textContent,image,title);
             var markerExistsInStoreData =storeData.includes(marker.recordData);
             console.log("marker.recordValue",marker.recordData);   
@@ -213,12 +225,17 @@ function addPointToMap(lat, lon,recordValue) {
                 openModal.call(marker);
                 handleMarkerClick(this.recordData,this.image,marker);
                 //移除旧的事件处理函数
-                $("#navabutton").off("click", showNextNarration);
+                $("#narration-container").off("click", showNextNarration);
                 // 绑定新的事件处理函数
-                $("#navabutton").on("click", congrateNarration);
+                console.log("绑定成功其他的");
+                // $("#dialoguebox").on("click", congrateNarration);
                 // 显示按钮（确保它是可见的）
-                $("#navabutton").show();
 
+                $('#narration-container').show();
+                $("#dialoguebox").show();
+                $(`#congration-1`).removeClass('hidden');
+                console.log("恭喜恭喜恭喜",$("#dialoguebox").length);
+                $("#narration-container").on("click", congrateNarration);
                 marker.setIcon(customIcon);
             }
         }.bind(this));             
@@ -286,9 +303,10 @@ function closeConfirmationSidebar() {
 function iterateRecords(data) {
     $.each(data.result.records, function(recordKey, recordValue) {
         const brisbaneSuburbs = [
-            "Brisbane","Brisbane-City","South Brisbane", "West End","Fortitude Valley","Woolloongabba","Indooroopilly",
-            ,"Toowong","Chermside","Fairfield", "Milton","South Bank", "Wynnum", "Lytton",
-            "Albion","Bowen Hills","Herston", "New Farm","Taringa","Annerley", "Ashgrove","Bardon", "Bulimba", "Kangaroo Point",
+            "Brisbane","Brisbane-City","South Brisbane", "West End","Fortitude Valley",
+            "Woolloongabba","Indooroopilly","Toowong","Chermside","Fairfield", "Milton",
+            "South Bank","Wynnum", "Lytton","Albion","Bowen Hills","Herston", "New Farm",
+            "Taringa", "Annerley", "Ashgrove","Bardon", "Bulimba", "Kangaroo Point",
             "Kelvin Grove", "Mount Gravatt"
         ];
         if(brisbaneSuburbs.includes(recordValue.Place)){
@@ -376,9 +394,7 @@ var sourceicon = L.icon({
     popupAnchor: [-3, -76] // popup的锚点
 });
 
-//旁白
-let currentNarration = 0; // 当前显示的旁白
-let currentCongration = 0; // 当前显示的祝贺旁白
+
 
 function showNextNarration() {
     // 隐藏当前的旁白
@@ -392,11 +408,12 @@ function showNextNarration() {
         // 所有旁白都显示完后，隐藏按钮
         $('#narration-container button').hide();
     }
+
 }
 
 function congrateNarration() {
+    console.log("真的成功绑定了吗");
     //绑定事件
-    
     $('#narration-container button').show();
     // 隐藏当前的旁白
     $(`#narration-${currentNarration}`).addClass('hidden');
@@ -414,11 +431,6 @@ function congrateNarration() {
         currentCongration=0;
     }
 }
-
-// function playAudio() {
-//     let audio = document.getElementById("myAudio");
-//     audio.play();
-// }
 
 function fetchUsername() {
     $.ajax({
