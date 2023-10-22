@@ -230,12 +230,12 @@ function addPointToMap(lat, lon,recordValue) {
                 // 绑定新的事件处理函数
                 console.log("绑定成功其他的");
                 // $("#dialoguebox").on("click", congrateNarration);
-                // 显示按钮（确保它是可见的）
-
+                console.log("currentNarration",1);
+                $(`#narration-1`).addClass('hidden');
+                $(`#narration-${currentNarration}`).addClass('hidden');
                 $('#narration-container').show();
                 $("#dialoguebox").show();
                 $(`#congration-1`).removeClass('hidden');
-                console.log("恭喜恭喜恭喜",$("#dialoguebox").length);
                 $("#narration-container").on("click", congrateNarration);
                 marker.setIcon(customIcon);
             }
@@ -263,7 +263,7 @@ function addPointToMap(lat, lon,recordValue) {
         sidebarHtml.innerHTML = `
             <img src="icon\\dragon2.png" alt="No picture" width="250">
             <p>Memory:${caption}<p>
-            <button id="closeIcon" style="position: absolute; top: 10px; right: 10px;">X</button>
+            <button id="closeIcon"  style="position: absolute; top: 10px; right: 10px;">X</button>
             <p>Locaion: ${place}<br>Date: ${Date}<br>keywords: ${keywords}<br></p>
             <button id="startDig">Dig</button>
             <button id="closeSidebar">Cancel</button>
@@ -292,6 +292,16 @@ function addPointToMap(lat, lon,recordValue) {
             audio.pause();
             audio.currentTime = 0;
         });
+
+            // 给id为"closebut"的按钮添加关闭侧边栏逻辑
+        document.getElementById('closeIcon').addEventListener('click', function () {
+            console.log("其效果了嘛");
+            const sidebar = document.getElementById('sidebar');
+            document.getElementById("map").removeChild(sidebar);
+            audio.pause();
+            audio.currentTime = 0;
+        });
+
     } 
 
 

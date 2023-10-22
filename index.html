@@ -10,7 +10,33 @@
     <script src="js/code.jquery.com_jquery-3.6.0.min.js"></script>
     <script src="js/unpkg.com_leaflet@1.9.4_dist_leaflet.js"></script>
     <link rel="stylesheet" href="mvp.css">
+    <style>
+      #sidebar {
+    background-color: #8b0000; /* 深红色背景 */
+    width: 300px;
+    padding: 20px;
+    position: absolute; /* 设置为absolute */
+    top: 0; /* 顶部对齐 */
+    right: 0; /* 右侧对齐 */
+    font-family: 'Press Start 2P', cursive; /* 使用Press Start 2P字体，如果有的话 */
+    z-index: 999; /* 确保侧边栏在页面上方 */
+    box-shadow: -10px 0px 20px rgba(0, 0, 0, 0.2); /* 添加左侧阴影效果 */
+    border-right: 2px solid #555; /* 右侧添加2px的实线边框 */
+}
+
+#sidebar img {
+    display: block;
+    margin: 0 auto 20px; /* 居中显示，底部留有20px的间距 */
+}
+
+#sidebar p {
+    color: #ffffff; /* 文本颜色为白色 */
+    margin-bottom: 15px; /* 每个段落底部留有15px的间距 */
+}
+
+  </style>
 </head>
+
 <body>
    
     <header>
