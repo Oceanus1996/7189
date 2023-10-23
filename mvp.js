@@ -1,10 +1,6 @@
 // 初始化地图
 var map = L.map('map').setView([-3.56518,143.619995], 5); // 使用Wewak, New Guinea作为初始中心
 
-// L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-//     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-// }).addTo(map);
-
 L.tileLayer('https://tile.thunderforest.com/spinal-map/{z}/{x}/{y}.png?apikey=b6bf392431654cfd9009af454cf8e333', {
     attribution: '&copy; Thunderforest, &copy; OpenStreetMap Contributors',
     maxZoom: 22
@@ -81,10 +77,6 @@ function handleMarkerClick(url,image,marker){
         method:"POST",
         data:{urlToFetch:url},
         success:function(response){
-            setTimeout(function() {
-                // 这里放置你想要延迟执行的代码
-                console.log("延迟3秒后执行的代码");
-            }, 3000); 
             response = response.replace(/\[an error occurred while processing this directive\]/g, '');
             let $content = $(response);
             let title = $content.filter("title").text();
@@ -214,6 +206,7 @@ function addPointToMap(lat, lon,recordValue) {
     markerArray.push(marker);
     //数据存储到marker对象中
     marker.recordData =recordValue.URL;//url储存了
+    console.log("11111111111", marker.recordData);
     marker.marker=recordValue
     marker.image = recordValue['Primary image'];
     //点击时执行括号(事件监听器)
@@ -225,13 +218,12 @@ function addPointToMap(lat, lon,recordValue) {
             marker.isGrab = result;
             if(supportClick){
                 playGifAndDelay();
-                
-                
+                var self = this;
                 setTimeout(function() {
                     // 这里放置你想要延迟执行的代码
                     openModal.call(marker);
-                console.log("11111111111");
-                    handleMarkerClick(this.recordData,this.image,marker);
+                    console.log("11111111111",this.recordData);
+                    handleMarkerClick(self.recordData,self.image,marker);
                     //移除旧的事件处理函数
                     $("#narration-container").off("click", showNextNarration);
                     // 绑定新的事件处理函数
