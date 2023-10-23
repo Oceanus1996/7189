@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Adventure</title>
-    <link rel="stylesheet" href="basic.css">
+    <link rel="stylesheet" href="css/basic.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
     crossorigin=""/>
     <script src="js/code.jquery.com_jquery-3.6.0.min.js"></script>
     <script src="js/unpkg.com_leaflet@1.9.4_dist_leaflet.js"></script>
-    <link rel="stylesheet" href="mvp.css">
+    <link rel="stylesheet" href="css/mvp.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
@@ -47,15 +47,15 @@
     </header>
 
     
-    <!-- map放置处 -->
+    <!-- map -->
     <div ,class="modal" id="all-cont">
       <img id="defeat-gif" src="icon/defeted-gif.gif" alt="GIF" >
         <div class="model-content" id = "myModal">
             <span class="close">&times;</span>
-            <!-- 弹窗内容 -->
-            <h1>默认标题</h1>
+            <!-- pop out -->
+            <h1>title</h1>
             <img src="icon/ceshi.png">
-            <p>图片的标注</p>
+            <p>content</p>
         </div>
         
         <div id="map">  
@@ -104,18 +104,18 @@
  
     </footer>
     <script>
-      // document.body.style.height = window.innerHeight + 'px';
-      // $(function () {
-      //     $.ajax({
-      //         url: "check_login.php",
-      //         method: "GET",
-      //         success: function(msg) {
-      //             if (msg == 1){
-      //                 window.location="login.html";
-      //             }  
-      //         },
-      //     })
-      // })
+      document.body.style.height = window.innerHeight + 'px';
+      $(function () {
+          $.ajax({
+              url: "check_login.php",
+              method: "GET",
+              success: function(msg) {
+                  if (msg == 1){
+                      window.location="login.html";
+                  }  
+              },
+          })
+      })
     </script>
 
         

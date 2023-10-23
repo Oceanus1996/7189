@@ -48,7 +48,6 @@ CREATE TABLE `users`  (
 -- Records of users
 -- ----------------------------
 INSERT INTO `users` VALUES (1, '123', '321');
-INSERT INTO `users` VALUES (2, '甩甩甩', '123');
-INSERT INTO `users` VALUES (4, '对对对', '123');
+
 
 SET FOREIGN_KEY_CHECKS = 1;

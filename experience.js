@@ -1,22 +1,27 @@
 var records= [];
 var all_data =[];
+let playerLevel = 1;
 
-//先从js里找到所有brisbane的，把他们列出来，然后排列，然后解锁，然后干
 
+//update the experience bar
 function updateHealthBar(){
-    var grabbedMarkersCount=records.length;   
+    var grabbedMarkersCount = records.length % 3;   
     let experiencePercentage = (grabbedMarkersCount / 3) * 100;
 
-    // 更新经验条的宽度
+    //update the width of experience bar
     document.querySelector('.progress').style.width = experiencePercentage + '%';
 
-    // 判断是否升级
-    if (grabbedMarkersCount >= 3) {
+    console.log(`Records Length: ${records.length}`);
+    console.log(`Player Level: ${playerLevel}`);
+    console.log(`Experience Percentage: ${experiencePercentage}%`);
+
+    // check if level up
+    if (records.length > 0 && records.length % 3 === 0) {
         playerLevel++;
-        grabbedMarkersCount = 0;
-        document.querySelector('.level').textContent = 'Level' + playerLevel;
-        document.querySelector('.progress').style.width = '0%'; // 经验条归零
-    }
+        console.log("Player has leveled up!");
+        document.querySelector('.level').textContent = 'Level ' + playerLevel;
+        document.querySelector('.progress').style.width = '0%';
+    }   
     
 };
 const brisbaneSuburbs = [
@@ -33,7 +38,7 @@ $(document).ready(function() {
     }
     createDivsForSuburbs();
 
-//输入坐标增加标记
+//Enter coordinates to add a marker
 $.when(
     $.ajax({
         url: "https://data.gov.au/data/api/3/action/datastore_search", // if the dataset is coming from a different data portal, change the url (i.e. data.gov.au)
@@ -44,7 +49,7 @@ $.when(
             insertDataToDivs(data);
         }
     }),
-        // 使用AJAX从mvp.php获取grabbed URLs
+        // use AJAX from mvp.php to get grabbed URLs
         $.ajax({
             url: 'storageData.php',
             method: 'POST',
@@ -62,7 +67,7 @@ $.when(
             }
         })
         ).always(function(firstAjaxResponse, secondAjaxResponse) {
-            console.log("这里进来了吗");
+            console.log("is it in");
             insertDataToDivs(firstAjaxResponse[0]);
             var records = secondAjaxResponse[0];
             displayDivsByIds(records);
@@ -75,7 +80,7 @@ $.when(
 function createDivsForSuburbs() {
     const container = $('#all-data');
     brisbaneSuburbs.forEach(suburb => {
-        const suburbId = suburb.replace(/\s+/g, '-').toLowerCase(); // 创建 suburb 的唯一 ID
+        const suburbId = suburb.replace(/\s+/g, '-').toLowerCase(); // create unique ID of suburb
         const $suburbDiv = $('<div></div>', {
             id: suburbId,
             class: 'suburb-div'
@@ -85,7 +90,7 @@ function createDivsForSuburbs() {
         });
 
         $suburbDiv.append(`<h3>${suburb}</h3>`);
-        $suburbDiv.append($suburbSection); // 将 section 添加到 suburb div
+        $suburbDiv.append($suburbSection); // put section into suburb div
         container.append($suburbDiv);
     });
 }
@@ -114,7 +119,7 @@ function addArticleToSection($section, imageUrl, record) {
     const articleId = convertUrlToId(record.URL); 
     const $newArticle = $('<article></article>', {
         class: 'style1',
-        id: articleId, // 为文章设置ID
+        id: articleId, // set ID toarticles
     }).append(
         $('<span></span>', {
             class: 'image', 
@@ -135,7 +140,7 @@ function addArticleToSection($section, imageUrl, record) {
             )
         )
     );
-    $section.append($newArticle); // 将 article 添加到对应 suburb 的 section
+    $section.append($newArticle); // add article into the session of suburb 
 }
     
 function checkImgExists(imgUrl){
@@ -165,7 +170,7 @@ function applyStatusFilter() {
             displayUnlocked(records, all_data);
             break;
         default:
-            $(".record-div").show();  // 默认显示所有div
+            $(".record-div").show();  // show all div
             break;
     }
 }
@@ -174,7 +179,7 @@ function applyRegionFilter() {
     const regionValue = $("#regionFilter").val().toLowerCase();
     if (regionValue) {
         $(".suburb-div").each(function() {
-            const suburbName = $(this).attr('id'); // 使用div的id来获取suburb名字
+            const suburbName = $(this).attr('id'); // use id to get suburbs' name
             if (suburbName.includes(regionValue)) {
                 $(this).show();
             } else {
@@ -182,7 +187,7 @@ function applyRegionFilter() {
             }
         });
     } else {
-        $(".suburb-div").show();  // 如果输入框为空，则显示所有div
+        $(".suburb-div").show();  // if nothing input, show all div
     }
 }
 function displayUnlocked(lockedIds, allIds) {
@@ -190,36 +195,36 @@ function displayUnlocked(lockedIds, allIds) {
         const convertedId = convertUrlToId(id);
 
         if (lockedIds.includes(id)) {
-            // 如果id在lockedIds中，将其隐藏
+            // hide it if the id is in lockedIDs
             $("#" + convertedId).hide();
         } else {
-            // 如果id不在lockedIds中，将其显示
+            // if not, show it
             $("#" + convertedId).show();
         }
     });
 }
 
-//显示我已经成功解锁的
+//show unlocked div
 function displayDivsByIds(idsArray) {
-    // 首先隐藏所有的项
+    // hide all div
     $(".style1").hide(); 
 
-    // 遍历idsArray，显示对应的项
+    // Iterate through idsArray and display the corresponding items.
     idsArray.forEach(function(id) {
         const convertedId = convertUrlToId(id);
         $("#" + convertedId).show();
     });
 }
 
-// //去掉特殊符号
+//Remove special characters
 function convertUrlToId(url) {
     return url.replace(/[^a-zA-Z0-9]/g, "_");
 }
 
 $(document).ready(function() {
-    // 监听勾选框的变化
+    // Listen for changes to the checkboxes
     $("#statusFilter").change(applyStatusFilter);
 
-    // 监听搜索按钮点击
+    // Listen for search button clicks
     $("#searchRegion").click(applyRegionFilter);
 });

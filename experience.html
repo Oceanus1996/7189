@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Experience</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="basic.css">
-    <!-- <link rel="stylesheet" href="main.css"> -->
+    <link rel="stylesheet" href="css/basic.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
@@ -21,7 +20,7 @@
 </head>
 
 <body style="background-color: white;">
-    <!-- 导航栏 -->
+    <!-- navigation bar -->
     
 	<div class="nav-items">
 		<div>
@@ -42,7 +41,7 @@
 	  </div>
     </header>
 
-    <!-- user状态 -->
+    <!-- user level -->
     <div class="bar">
         <div class="exp">
           <span class="level">Level1</span>
@@ -50,19 +49,19 @@
             <div class="progress"></div>
           </div>
         </div>
-        <img src="Killdragon.png" alt="屠龙" class="dragon-image"> <!-- 添加图片元素 -->
+        <img src="icon/Killdragon.png" alt="kill dragon" class="dragon-image"> 
       </div>
        
     </div>
 <div id="filters">
-  <!-- 勾选框筛选 -->
+  <!-- filter -->
   <select id="statusFilter" >
       <option value="all">All</option>
       <option value="unlocked">Unlocked</option>
       <option value="locked">Locked</option>
   </select>
   
-  <!-- 地区输入框 --> 
+  <!-- input bar --> 
   <input type="text" id="regionFilter" placeholder="Input place...">
   <button id="searchRegion" class="btn">Search</button>
 </div>
@@ -71,7 +70,7 @@
   
 
 <script src="experience.js"></script>
-<script src="basic.js"></script>
+
 
 </body>
 </html>

@@ -4,7 +4,7 @@
     if(!$conn)
     {
         echo mysqli_error();
-        die("数据库连接失败");
+        die("Sql connect failed");
         
     }
     mysqli_select_db($conn,"adventure");

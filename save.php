@@ -10,11 +10,11 @@ $sql = "select * from user_do where `userid` = '{$userid}' and `xy` = '{$url}'";
 $del_query=@mysqli_query($conn,$sql);
 $obj = mysqli_fetch_object($del_query);
 if ($obj){
-    echo "存储过了";
-//    echo "<script>alert('该用户已存储过');window.location='index.html'</script>";
+    echo "already exist";
+//    echo "<script>alert('already exist');window.location='index.html'</script>";
     die;
 }
 
 $insertSql = "insert into user_do(`userid`,`xy`) values('{$userid}','{$url}')";
 $query=@mysqli_query($conn,$insertSql);
-echo "存储成功";
+echo "save successful";

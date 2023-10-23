@@ -3,33 +3,19 @@ body {
   padding: 0;
   margin: 0;
   background-color: #000;
-  height: 100vh; /* vh 代表视口高度，100vh 即为浏览器窗口的100%高度 */
-  /* overflow-y: hidden; 隐藏垂直滚动条 */
+  height: 100vh; 
   background-color: #000;
 }
 
-/* Adventure页 */
-/* 导航栏 */
+/* Adventure Page */
 
-
-/* header {
-  height: 44px;
-  background-color: #000;
-  padding: 0 18px;
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-} */
-
-
-
-/* CSS代码 */
+/* navigation bar*/
 .nav-items {
   
-  text-align: center; /* 将文本居中排列 */
+  text-align: center; /* put the text in the center */
   height: 40px;
   background: linear-gradient(black, grey);
-  width: 100%; /* 使用百分比以适应不同屏幕大小 */
+  width: 100%; /* fit different size */
   margin: auto;
   /* rrm */
   display: flex; 
@@ -50,8 +36,8 @@ body {
 }
 
 .nav-items li {
-  display: inline-block; /* 使列表项水平排列 */
-  vertical-align: middle; /* 垂直居中 */
+  display: inline-block; 
+  vertical-align: middle; 
   height: 40px;
   text-align: center;
 }
@@ -136,23 +122,16 @@ footer{
   justify-content: center;
 }
 
-/* .user{
-  border-radius: 100%;
-  height: 100px;
-  margin-left: 50%;
-  margin-top: 15%;
-} */
 
 footer a:hover {
   text-decoration: none;  
   color: inherit; 
   background: #000; 
 }
-
+/*the experience bar*/
 .exp{
   display: flex;
   align-items: center;
-  /* margin-left: 15%; */
   color: #fff;
 }
 .level{
@@ -170,28 +149,28 @@ footer a:hover {
 .progress {
   height: 100%;
   width:0;  
-  background:linear-gradient(45deg, #22ffde,#2196f3); /* 经验增加时的颜色 */
+  background:linear-gradient(45deg, #22ffde,#2196f3); /* increasing the EXP and change the color */
   animation: animate 1s;
 }
 
 
-/* Experience页 */
+/* Experience page */
 .bar {
   height: 150px;
-  background: linear-gradient(to right, #b9b8b8, #000000); /* 使用带有透明度的渐变背景 */
+  background: linear-gradient(to right, #b9b8b8, #000000); /* background color */
   color: #fff;
   padding: 0;
   display: flex;
-  justify-content: space-between; /* 靠左和靠右对齐 */
+  justify-content: space-between;
   align-items: center;
   width: 100%;
 }
-
+/*experience bar*/
 .bar .exp {
   display: flex;
   align-items: center;
   font-size: 60px;
-  width: 60%; /* 适当减小宽度 */
+  width: 60%; 
 }
 
 .bar .level {
@@ -200,21 +179,11 @@ footer a:hover {
 }
 
 .dragon-image {
-  max-width: 100%; /* 设置图片的最大宽度为背景宽度 */
-  max-height: 100%; /* 设置图片的最大高度为背景高度 */
-  margin-right: 0; /* 移除右边距 */
-  margin-left: 0; /* 移除左边距，将图片放到最左边 */
+  max-width: 100%; 
+  max-height: 100%; 
+  margin-right: 0;
+  margin-left: 0; 
 }
-
-
-
-
-
-
-
-
-
-
 
 
 .userimag{
@@ -225,7 +194,7 @@ footer a:hover {
   margin-top: 10px;
 }
 
-/* 图鉴效果 */
+/* field guide */
 .container{
   position: relative;
   height: 600px;
@@ -284,7 +253,7 @@ footer a:hover {
   border-radius: 4px;
 }
 .container .card.unlocked .imgBx img {
-  content: url('icon/unlocked.png'); /* 新的解锁图片 */
+  content: url('icon/unlocked.png'); /* unlock new picture */
 }
 
 .container .card .content{
@@ -298,7 +267,7 @@ footer a:hover {
   transition: .3s ease-in-out;
 }
 
-/* 按钮样式 */
+/* button design */
 .buttoncontainer{
   display: flex;
   justify-content: center;
@@ -329,33 +298,32 @@ footer a:hover {
   }
   @keyframes streamer{
     100%{
-        /* 背景位置 */
+        /* background location */
         background-position: -400% 0;
     }}
 
 /* basic css */
-/* 为所有的记录div设置基本样式 */
 .record-div {
-  border: 1px solid #ccc;  /* 添加边框 */
-  margin: 10px;            /* 设置外边距 */
-  padding: 10px;           /* 设置内边距 */
-  background-color: #f9f9f9; /* 设置背景色 */
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* 添加盒子阴影效果 */
-  transition: 0.3s;       /* 平滑过渡效果 */
+  border: 1px solid #ccc;  
+  margin: 10px;            
+  padding: 10px;           
+  background-color: #f9f9f9; 
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  transition: 0.3s;      
 }
 
-/* 鼠标悬停时的效果 */
+/* mouse hover */
 .record-div:hover {
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
-  transform: scale(1.02); /* 轻微放大 */
-  background-color: #fff; /* 改变背景颜色 */
+  transform: scale(1.02); 
+  background-color: #fff; 
 }
 
-/* 设置记录div内部的段落样式 */
+/* record */
 .record-div p {
-  font-size: 14px;        /* 字体大小 */
-  margin-bottom: 5px;     /* 下边距 */
-  color: #333;            /* 字体颜色 */
+  font-size: 14px;        
+  margin-bottom: 5px;     
+  color: #333;           
 }
 
 .btn{
@@ -495,7 +463,6 @@ footer a:hover {
         left: 0;
         width: 100%;
         height: 100%;
-        /* background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cstyle%3Eline %7B stroke-width: 0.25px%3B stroke: %23ffffff%3B %7D%3C/style%3E%3Cline x1='0' y1='0' x2='100' y2='100' /%3E%3Cline x1='100' y1='0' x2='0' y2='100' /%3E%3C/svg%3E"); */
         background-position: center;
         background-repeat: no-repeat;
         background-size: 100% 100%;
@@ -639,8 +606,8 @@ margin: 8px auto 0;
   padding: 10px 20px;
   border-radius: 8px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-  width: 60%; /* 调整为页面宽度的60%，您可以根据需要进行调整 */
-  margin: 0 auto; /* 使其在页面中居中 */
+  width: 60%;
+  margin: 0 auto;
 }
 
 #statusFilter {
@@ -650,7 +617,7 @@ margin: 8px auto 0;
   background: white;
   color: #333;
   outline: none;
-  appearance: none; /* 移除默认的下拉框样式 */
+  appearance: none; 
   position: relative;
   background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="8"><path fill="#333" d="M1.4 0.8l4.6 6.4 4.6-6.4z"/></svg>');
   background-repeat: no-repeat;
