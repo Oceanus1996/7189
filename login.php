@@ -21,3 +21,4 @@ if ($re){
 }else{
     echo "<script>alert('log in fail');window.location='login.html'</script>";
 }
+?>

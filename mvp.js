@@ -72,7 +72,6 @@ function updateHealthBar(){
     
 };
 
-
 //事件触发时发送ajax到php
 function handleMarkerClick(url,image,marker){
     var isGrab =marker.isGrab;
@@ -82,6 +81,10 @@ function handleMarkerClick(url,image,marker){
         method:"POST",
         data:{urlToFetch:url},
         success:function(response){
+            setTimeout(function() {
+                // 这里放置你想要延迟执行的代码
+                console.log("延迟3秒后执行的代码");
+            }, 3000); 
             response = response.replace(/\[an error occurred while processing this directive\]/g, '');
             let $content = $(response);
             let title = $content.filter("title").text();
@@ -94,24 +97,22 @@ function handleMarkerClick(url,image,marker){
                                 'div.story > ' +
                                 'div.story_body.description').text();
 
-            // let textContent = $content.find('div#page > div#main > div#col1 > div#col1_content > div.module.content_12col > div.container > div.story > div.story_body.description').text();
             displayRecordData(textContent,image,title);
             var markerExistsInStoreData =storeData.includes(marker.recordData);
             console.log("marker.recordValue",marker.recordData);   
             if (markerExistsInStoreData) {
-                console.log("真的有用吗");
                 isGrab=true;
             } else {
                 isGrab=false;
         
                 storeData.push(marker.recordData);
             }
-            //血条计数 
+            //health bar
             if(!isGrab){
                 grabbedMarkersCount++;
                 grabbedMarkers++;
                 updateHealthBar(grabbedMarkersCount);
-                //添加到已解锁数组中
+                //add to grabbed 
                 var object = {
                     title: title,
                     image: image,
@@ -223,21 +224,26 @@ function addPointToMap(lat, lon,recordValue) {
             supportClick = result;
             marker.isGrab = result;
             if(supportClick){
-                openModal.call(marker);
-                handleMarkerClick(this.recordData,this.image,marker);
-                //移除旧的事件处理函数
-                $("#narration-container").off("click", showNextNarration);
-                // 绑定新的事件处理函数
-                console.log("绑定成功其他的");
-                // $("#dialoguebox").on("click", congrateNarration);
-                console.log("currentNarration",1);
-                $(`#narration-1`).addClass('hidden');
-                $(`#narration-${currentNarration}`).addClass('hidden');
-                $('#narration-container').show();
-                $("#dialoguebox").show();
-                $(`#congration-1`).removeClass('hidden');
-                $("#narration-container").on("click", congrateNarration);
-                marker.setIcon(customIcon);
+                playGifAndDelay();
+                
+                
+                setTimeout(function() {
+                    // 这里放置你想要延迟执行的代码
+                    openModal.call(marker);
+                console.log("11111111111");
+                    handleMarkerClick(this.recordData,this.image,marker);
+                    //移除旧的事件处理函数
+                    $("#narration-container").off("click", showNextNarration);
+                    // 绑定新的事件处理函数
+                    console.log("currentNarration",1);
+                    $(`#narration-1`).addClass('hidden');
+                    $(`#narration-${currentNarration}`).addClass('hidden');
+                    $('#narration-container').show();
+                    $("#dialoguebox").show();
+                    $(`#congration-1`).removeClass('hidden');
+                    $("#narration-container").on("click", congrateNarration);
+                    marker.setIcon(customIcon);
+                }, 4000); 
             }
         }.bind(this));             
     });
@@ -250,7 +256,6 @@ function addPointToMap(lat, lon,recordValue) {
     if (oldSidebar) {
         oldSidebar.parentNode.removeChild(oldSidebar);
     } 
-
         const sidebarHtml = document.createElement("div");
         sidebarHtml.id = "sidebar";
         sidebarHtml.classList.add('sidebar');
@@ -295,7 +300,6 @@ function addPointToMap(lat, lon,recordValue) {
 
             // 给id为"closebut"的按钮添加关闭侧边栏逻辑
         document.getElementById('closeIcon').addEventListener('click', function () {
-            console.log("其效果了嘛");
             const sidebar = document.getElementById('sidebar');
             document.getElementById("map").removeChild(sidebar);
             audio.pause();
@@ -304,8 +308,19 @@ function addPointToMap(lat, lon,recordValue) {
 
     } 
 
+// 播放 GIF 并等待三秒
+function playGifAndDelay() {
+    // 获取对播放 GIF 的 DOM 元素的引用
+    var gifElement = document.getElementById('defeat-gif');
+    if (gifElement) {
+        // 显示 GIF（你可能需要设置合适的样式）
+        gifElement.style.display = 'block';
+        setTimeout(function() {
+            gifElement.style.display = 'none';
+        }, 3000); 
+    }
+}
 
-    
 //侧边框关闭
 function closeConfirmationSidebar() {
     document.getElementById('confirmationSidebar').classList.add('hidden');
@@ -333,22 +348,20 @@ function iterateRecords(data) {
 }
 
 $(document).ready(function() {
-
     var data = {
-        resource_id: "d73f2a2a-c271-4edd-ac45-25fd7ad2241f", // to change to a different dataset, change the resource_id
+        resource_id: "d73f2a2a-c271-4edd-ac45-25fd7ad2241f",
         limit: 8500,
     }
-
 //输入坐标增加标记
     $.ajax({
-        url: "https://data.gov.au/data/api/3/action/datastore_search", // if the dataset is coming from a different data portal, change the url (i.e. data.gov.au)
+        url: "https://data.gov.au/data/api/3/action/datastore_search", 
         data: data,
-        dataType: "jsonp", // We use "jsonp" to ensure AJAX works correctly locally (otherwise XSS).
+        dataType: "jsonp", 
         cache: true,
         success: function(data) {
             console.log(data)
             iterateRecords(data);
-        }
+        }   
     });      
 });
 
@@ -442,21 +455,17 @@ function congrateNarration() {
         currentCongration=0;
     }
 }
-
 function fetchUsername() {
     $.ajax({
         url: 'username.php',
         type: 'GET',
-        dataType: 'json',
+        dataType: 'text',
         success: function(data) {
-            if (data && data.username) {
-                userName = data.username; // 更新全局变量
-                console.log("欢迎, " + username + "!", "user");
-                // 使用用户名更新页面内容
-                document.getElementById("customer").innerText = "欢迎, " + userName + "!";
-            } else {
-                // 处理错误或者用户未登录的情况
+            if (data && data.includes("请先登录!")) {
                 alert('请先登录!');
+            } else {
+                // 你没有提供用户名在响应中，所以我无法更新它
+                console.log("用户已登录，但响应中没有提供用户名");
             }
         },
         error: function() {
@@ -465,3 +474,4 @@ function fetchUsername() {
         }
     });
 }
+

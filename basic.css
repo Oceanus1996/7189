@@ -25,11 +25,28 @@ body {
 
 /* CSS代码 */
 .nav-items {
+  
   text-align: center; /* 将文本居中排列 */
   height: 40px;
   background: linear-gradient(black, grey);
   width: 100%; /* 使用百分比以适应不同屏幕大小 */
   margin: auto;
+  /* rrm */
+  display: flex; 
+  justify-content: space-between; 
+}
+.nav-items ul {
+  align-items: left;
+}
+.nav-items ul li a {
+  font-family: 'Cinzel', serif;
+    align-items: left;
+    font-size: 15px;
+}
+.nav-items img{
+  height: 100%;
+  margin: 0 0;
+  width: 80px;
 }
 
 .nav-items li {
@@ -39,6 +56,23 @@ body {
   text-align: center;
 }
 
+.nav-items p{
+  font-family: 'Courier New', Courier, monospace;
+  color: aliceblue;
+  margin-top: 13px;
+  margin-right: 15px;
+  cursor: pointer;   
+}
+#defeat-gif{
+  display:none;
+   position: absolute;
+   z-index: 10002;
+   width: 33%;  
+   text-align: center;
+  margin-left:33% ;
+  margin-top: 15%;
+
+}
 .nav-items a {
   color: white;
 }
@@ -379,6 +413,278 @@ footer a:hover {
 
 #filters{
   margin: 1em;
+}
+/* rrm */
+.all-data .suburb-div h2 {
+  font-weight: 900;
+  line-height: 1.5;
+  margin: 0 0 2em 0;
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+}
+
+
+.all-data .suburb-div .tiles {
+  display: -moz-flex;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -moz-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  position: relative;
+  margin: -2.5em 0 0 -2.5em;
+}
+
+.all-data .suburb-div .tiles article {
+    -moz-transition: -moz-transform 0.5s ease, opacity 0.5s ease;
+    -webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
+    -ms-transition: -ms-transform 0.5s ease, opacity 0.5s ease;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    position: relative;
+    width: calc(33.33333% - 2.5em);
+    margin: 2.5em 0 0 2.5em;
+  }
+
+  .all-data .suburb-div .tiles article > .image {
+      -moz-transition: -moz-transform 0.5s ease;
+      -webkit-transition: -webkit-transform 0.5s ease;
+      -ms-transition: -ms-transform 0.5s ease;
+      transition: transform 0.5s ease;
+      position: relative;
+      display: block;
+      width: 100%;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .all-data .suburb-div .tiles article > .image img {
+        display: block;
+        width: 100%;
+      }
+
+      .all-data .suburb-div .tiles article > .image:before {
+        pointer-events: none;
+        -moz-transition: background-color 0.5s ease, opacity 0.5s ease;
+        -webkit-transition: background-color 0.5s ease, opacity 0.5s ease;
+        -ms-transition: background-color 0.5s ease, opacity 0.5s ease;
+        transition: background-color 0.5s ease, opacity 0.5s ease;
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 1.0;
+        z-index: 1;
+        opacity: 0.8;
+      }
+
+      .all-data .suburb-div .tiles article > .image:after {
+        pointer-events: none;
+        -moz-transition: opacity 0.5s ease;
+        -webkit-transition: opacity 0.5s ease;
+        -ms-transition: opacity 0.5s ease;
+        transition: opacity 0.5s ease;
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        /* background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cstyle%3Eline %7B stroke-width: 0.25px%3B stroke: %23ffffff%3B %7D%3C/style%3E%3Cline x1='0' y1='0' x2='100' y2='100' /%3E%3Cline x1='100' y1='0' x2='0' y2='100' /%3E%3C/svg%3E"); */
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        opacity: 0.25;
+        z-index: 2;
+      }
+
+      .all-data .suburb-div .tiles article > a {
+      display: -moz-flex;
+      display: -webkit-flex;
+      display: -ms-flex;
+      display: flex;
+      -moz-flex-direction: column;
+      -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      -moz-align-items: center;
+      -webkit-align-items: center;
+      -ms-align-items: center;
+      align-items: center;
+      -moz-justify-content: center;
+      -webkit-justify-content: center;
+      -ms-justify-content: center;
+      justify-content: center;
+      -moz-transition: background-color 0.5s ease, -moz-transform 0.5s ease;
+      -webkit-transition: background-color 0.5s ease, -webkit-transform 0.5s ease;
+      -ms-transition: background-color 0.5s ease, -ms-transform 0.5s ease;
+      transition: background-color 0.5s ease, transform 0.5s ease;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 4px;
+      border-bottom: 0	;
+      color: #ffffff;
+      text-align: center;
+      text-decoration: none;
+      z-index: 3;
+    }
+
+    .all-data .suburb-div .tiles article > a > :last-child {
+        margin: 0;
+      }
+
+      .all-data .suburb-div .tiles article > a:hover {
+        color: #fcf6f6 !important;
+      }
+
+      .all-data .suburb-div .tiles article > a h2 {
+        margin: 0;
+      }
+
+      .all-data .suburb-div .tiles article > a .content {
+        -moz-transition: max-height 0.5s ease, opacity 0.5s ease;
+        -webkit-transition: max-height 0.5s ease, opacity 0.5s ease;
+        -ms-transition: max-height 0.5s ease, opacity 0.5s ease;
+        transition: max-height 0.5s ease, opacity 0.5s ease;
+        width: 100%;
+        max-height: 0;
+        line-height: 1.5;
+        margin-top: 0.35em;
+        opacity: 0;
+      }
+
+      .all-data .suburb-div .tiles article > a .content > :last-child {
+          margin-bottom: 0;
+        }
+
+        .all-data .suburb-div .tiles article.style1 > .image:before {
+      background-color: #dadfe9;
+    }
+
+  
+
+    body:not(.is-touch) .tiles article:hover > .image {
+      -moz-transform: scale(1.1);
+      -webkit-transform: scale(1.1);
+      -ms-transform: scale(1.1);
+      transform: scale(1.1);
+    }
+
+      body:not(.is-touch) .tiles article:hover > .image:before {
+        background-color: #161919;
+        opacity: 0.35;
+      }
+
+      body:not(.is-touch) .tiles article:hover > .image:after {
+        opacity: 0;
+        background-color: #0f1919;
+      }
+
+    body:not(.is-touch) .tiles article:hover .content {
+      max-height: 15em;
+      opacity: 1;
+    }
+
+  * + .tiles {
+    margin-top: 2em;
+  }
+  @media screen and (max-width: 736px) {
+
+    .all-data .suburb-div .tiles {
+      margin: -1.25em 0 0 -1.25em;
+    }
+
+    .all-data .suburb-div .tiles article {
+        width: calc(50% - 1.25em);
+        margin: 1.25em 0 0 1.25em;
+      }
+
+      .all-data .suburb-div .tiles article:hover > .image {
+          -moz-transform: scale(1.0);
+          -webkit-transform: scale(1.0);
+          -ms-transform: scale(1.0);
+          transform: scale(1.0);
+        }
+
+  }
+  .suburb-div h3 {
+font-size: 50px;
+color: #333333;
+letter-spacing: 1px;
+position: relative;
+font-weight: 600;
+text-align: center;
+
+}
+.suburb-div h3:after {
+border-top: 2px solid #333333;
+display: block;
+width: 81px;
+content: "";
+margin: 8px auto 0;
+}
+#filters {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f6f6f6;
+  padding: 10px 20px;
+  border-radius: 8px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  width: 60%; /* 调整为页面宽度的60%，您可以根据需要进行调整 */
+  margin: 0 auto; /* 使其在页面中居中 */
+}
+
+#statusFilter {
+  padding: 5px 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  background: white;
+  color: #333;
+  outline: none;
+  appearance: none; /* 移除默认的下拉框样式 */
+  position: relative;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="8"><path fill="#333" d="M1.4 0.8l4.6 6.4 4.6-6.4z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#statusFilter:hover {
+  border-color: #c0c0c0;
+}
+#regionFilter {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  flex-grow: 1;
+  margin: 0 10px;
+}
+
+#searchRegion.btn {
+  padding: 5px 15px;
+  border: none;
+  background-color: #a39797;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#searchRegion.btn:hover {
+  background-color: #473f3f;
+}
+
+.all-data {
+  margin: 20px;
 }
 
 }

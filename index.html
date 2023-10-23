@@ -10,39 +10,28 @@
     <script src="js/code.jquery.com_jquery-3.6.0.min.js"></script>
     <script src="js/unpkg.com_leaflet@1.9.4_dist_leaflet.js"></script>
     <link rel="stylesheet" href="mvp.css">
-    <style>
-      #sidebar {
-    background-color: #8b0000; /* 深红色背景 */
-    width: 300px;
-    padding: 20px;
-    position: absolute; /* 设置为absolute */
-    top: 0; /* 顶部对齐 */
-    right: 0; /* 右侧对齐 */
-    font-family: 'Press Start 2P', cursive; /* 使用Press Start 2P字体，如果有的话 */
-    z-index: 999; /* 确保侧边栏在页面上方 */
-    box-shadow: -10px 0px 20px rgba(0, 0, 0, 0.2); /* 添加左侧阴影效果 */
-    border-right: 2px solid #555; /* 右侧添加2px的实线边框 */
-}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap">
 
-#sidebar img {
-    display: block;
-    margin: 0 auto 20px; /* 居中显示，底部留有20px的间距 */
-}
+  <style>
+    
 
-#sidebar p {
-    color: #ffffff; /* 文本颜色为白色 */
-    margin-bottom: 15px; /* 每个段落底部留有15px的间距 */
-}
-
-  </style>
+</style>
 </head>
 
 <body>
    
     <header>
-      
-        
         <div class="nav-items">
+          <div>
+              <img src="icon/logo.png" >
+          </div>
+          <div>
           <ul>
             <li><a href="vedio.html">Home</a></li>
             <li><a href="index.html">Adventure</a></li>
@@ -50,26 +39,30 @@
             <li><a href="login.html">Login</a></li>
             <li><a href="register.html">Register</a></li>
           </ul>
+          </div>
+          <div onclick="location.href='login.html'">
+              <P id="customer" >WELCOME!!</P>
+          </div>
         </div>
-      
-
-    
     </header>
 
+    
     <!-- map放置处 -->
     <div ,class="modal" id="all-cont">
+      <img id="defeat-gif" src="icon/defeted-gif.gif" alt="GIF" >
         <div class="model-content" id = "myModal">
             <span class="close">&times;</span>
             <!-- 弹窗内容 -->
             <h1>默认标题</h1>
-            <img>
+            <img src="icon/ceshi.png">
             <p>图片的标注</p>
         </div>
+        
         <div id="map">  
           
           <div id="dialogue-column">
               <img src="icon/female.png" alt="Person" class="person-image">
-              <!-- 对话框 -->
+              <!-- narra -->
               <div class="dialogue-box" >
                 <div id="narration-container" onclick="showNextNarration()" class="narration-container">
                   <p class="narration" id="narration-1">The entire city has fallen into a deep slumber, </p>
@@ -80,32 +73,24 @@
                   <p class="narration hidden" id="congration-1">You successfully defeated it.</p>
                   <p class="narration hidden" id="congration-2">Brave warrior, </p>
                   <p class="narration hidden" id="congration-3"> follow the guiding light and rescue this city.</p>
-                  <p class="narration hidden" id="congration-4">embark on the journey to defeat the dragons.</p>
-              
-                  <!-- <button id="navabutton" onclick="showNextNarration()" class="btn">Continue</button> -->
-                
+                  <p class="narration hidden" id="congration-4">embark on the journey to defeat the dragons.</p>                
                 </div>
                 
               </div>
           </div>
         </div> 
         <div class="buttoncontainer">
-          <button type="button" onclick="showCurrent()" class="locationbutton">Current location</button>
+          <button type="button" onclick="showCurrent()" class="locationbutton" >Current location</button>
         </div>
-      
     </div>
-
- 
 
     <script src="mvp.js"></script>
     <!-- footer -->
     <footer>
-      <!-- <a href="experience.html">
-        <img src="icon/touxiang.webp" alt="user" class="user"> -->
       </a>
 
       <div class="exp">
-        <span class="level">Level1</span>
+        <span class="level" style=" font-family: 'Pacifico', cursive;">Level1</span>
         <div class="progress-bar">
             <div class="progress"></div>
       </div>
@@ -113,12 +98,11 @@
     
     <audio id="sidebarAudio" preload="auto">
       <source src="icon/win.wav" type="audio/mpeg">
-      您的浏览器不支持audio元素。
+      SORRY,YOU CANNOT HEAR AUDIO.
     </audio>
   
  
     </footer>
-    <!-- 固定高度为可视高度 -->
     <script>
       document.body.style.height = window.innerHeight + 'px';
       $(function () {

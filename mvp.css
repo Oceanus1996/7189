@@ -29,20 +29,76 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     z-index: 10001;   
     font-size: 15px;  
+    /* rrm */
+    overflow-y: auto; 
+    margin: 10%;
+    max-height: 500px;
+   
 }
 .model-content img {
-    width: 300px;    
-    height: auto;   
+   float: none;    
+    /* margin: 10% auto;  */
+    width: 70%; 
+    padding-top:20px;
+    padding-bottom: 20px;
+    padding-left: 15%;
+    padding-right: 10%;        
+    height: auto;  
 }
 .model-content p {
-    height: 300px;          /* 限制高度为 300px */
-    overflow-y: hidden;    /* 隐藏超出部分 */
+    margin: 0 auto; 
+    hyphens: auto;
+    text-align: justify;
+    clear: both; 
+    width: 100%; 
+    height: auto;          
+    overflow-y: hidden;    
     position: relative;
     color: aliceblue;
+    font-family: 'Patrick Hand', cursive;
 }
 .model-content h1{
+    margin: 0 auto;         /* 水平居中 */
+    text-align: center;     /* 文本居中 */
+    width: 100%;            /* 占据全部宽度 */
     color: #f4f4f4;
+    font-family: 'Bangers', cursive;
 }
+/* rrm */
+.model-content p{
+  width: 100%; 
+  margin: 0 auto; 
+  hyphens: auto;
+  text-align: justify;
+  clear: both; /* 清除浮动 */
+  width: 100%; 
+  font-size: 20px;
+}
+/* 设置WebKit浏览器（如Chrome、Safari）的滚动条样式 */
+.model-content::-webkit-scrollbar {
+  width: 10px; /* 滚动条的宽度 */
+}
+
+.model-content::-webkit-scrollbar-track {
+  background-color: #2a3d5f; /* 深蓝色轨道 */
+  border-radius: 10px; /* 轨道的圆角 */
+}
+
+.model-content::-webkit-scrollbar-thumb {
+  background-color: #4a5d7f; /* 浅蓝色滑块 */
+  border-radius: 10px; /* 滑块的圆角 */
+}
+
+.model-content::-webkit-scrollbar-thumb:hover {
+  background-color: #697a9f; /* 滑块的鼠标悬停颜色 */
+}
+
+/* 对于Firefox，你可以设置滚动条的宽度，但自定义样式的选项较少 */
+.model-content {
+  scrollbar-width: thin;  /* 设置滚动条的宽度为细 */
+  scrollbar-color: #4a5d7f #2a3d5f; /* 浅蓝色滑块和深蓝色轨道 */
+}
+
 .close{
     color: rgb(255, 255, 255);
     float: right;
@@ -123,6 +179,30 @@
 /* 侧边栏 */
 
 /* 侧边栏 */
+/* rrm */
+#sidebar {
+  background-color: #8b0000; 
+  width: 300px;
+  padding: 20px;
+  position: absolute; 
+  top: 0; 
+  right: 0; 
+  font-family: 'Press Start 2P', cursive; 
+  z-index: 999; 
+  box-shadow: -10px 0px 20px rgba(0, 0, 0, 0.2); 
+  border-right: 2px solid #555; 
+}
+
+#sidebar img {
+  display: block;
+  margin: 0 auto 20px; 
+}
+
+#sidebar p {
+  color: #ffffff; 
+  margin-bottom: 15px; 
+}
+/* rrm */
 #sidebar {
 	width: 250px;
 	background: linear-gradient(to bottom, #300202, #b33e13); /* 黑色到橙红色的渐变背景 */
