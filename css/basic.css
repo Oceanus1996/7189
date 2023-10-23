@@ -289,7 +289,9 @@ footer a:hover {
     background-size: 400%;
     border-radius: 50px;
     z-index: 1;
-    margin-top: 35px;}
+    margin-top: 35px;
+    padding: 1px;
+  }
   .locationbutton:hover {
     animation: streamer 8s infinite;
   }
@@ -652,6 +654,65 @@ margin: 8px auto 0;
 
 .all-data {
   margin: 20px;
+}
+/* rrm */
+#popup {
+  width: 80%;
+  max-width: 600px;
+  padding: 20px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 8px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  display: block;
+}
+
+.popup h2 {
+  font-size: 24px;
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.image-text-wrapper {
+  display: flex;
+  align-items: center; 
+  margin-bottom: 20px;
+}
+
+.image-text-wrapper img {
+  width: 150px; 
+  height: auto;
+  margin-right: 20px;
+}
+
+.image-text-wrapper p {
+  flex: 1; 
+  font-size: 16px;
+  color: #666;
+  text-align: justify;
+  margin: 0;
+  padding-right: 20px; 
+}
+
+button {
+  padding: 10px 15px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-align: center;
+}
+
+button:hover {
+  background-color: #555;
 }
 
 }

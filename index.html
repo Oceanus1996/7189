@@ -18,14 +18,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap">
 
-  <style>
-    
-
-</style>
 </head>
-
 <body>
-   
     <header>
         <div class="nav-items">
           <div>
@@ -47,78 +41,72 @@
     </header>
 
     
-    <!-- map -->
-    <div ,class="modal" id="all-cont">
-      <img id="defeat-gif" src="icon/defeted-gif.gif" alt="GIF" >
-        <div class="model-content" id = "myModal">
-            <span class="close">&times;</span>
-            <!-- pop out -->
-            <h1>title</h1>
-            <img src="icon/ceshi.png">
-            <p>content</p>
-        </div>
-        
-        <div id="map">  
-          
-          <div id="dialogue-column">
-              <img src="icon/female.png" alt="Person" class="person-image">
-              <!-- narra -->
-              <div class="dialogue-box" >
-                <div id="narration-container" onclick="showNextNarration()" class="narration-container">
-                  <p class="narration" id="narration-1">The entire city has fallen into a deep slumber, </p>
-                  <p class="narration hidden" id="narration-2"> the seawater has turned into flames, </p>
-                  <p class="narration hidden" id="narration-3">and paradise has been scorched to desolation.</p>
-                  <p class="narration hidden" id="narration-4">Only you can save it all.  </p>
-                  <p class="narration hidden" id="narration-5"> Do you see the evil dragons in the picture?</p>
-                  <p class="narration hidden" id="congration-1">You successfully defeated it.</p>
-                  <p class="narration hidden" id="congration-2">Brave warrior, </p>
-                  <p class="narration hidden" id="congration-3"> follow the guiding light and rescue this city.</p>
-                  <p class="narration hidden" id="congration-4">embark on the journey to defeat the dragons.</p>                
-                </div>
-                
-              </div>
-          </div>
-        </div> 
-        <div class="buttoncontainer">
-          <button type="button" onclick="showCurrent()" class="locationbutton" >Current location</button>
-        </div>
-    </div>
-
-    <script src="mvp.js"></script>
-    <!-- footer -->
-    <footer>
-      </a>
-
-      <div class="exp">
-        <span class="level" style=" font-family: 'Pacifico', cursive;">Level1</span>
-        <div class="progress-bar">
-            <div class="progress"></div>
+  <!-- map -->
+  <div ,class="modal" id="all-cont">
+    <img id="defeat-gif" src="icon/defeted-gif.gif" alt="GIF" >
+      <div class="model-content" id = "myModal">
+          <span class="close">&times;</span>
+          <!-- pop out -->
+          <h1>title</h1>
+          <img src="icon/ceshi.png">
+          <p>content</p>
       </div>
+      
+      <div id="map">  
+          
+      <div id="dialogue-column">
+          <img src="icon/female.png" alt="Person" class="person-image">
+          <!-- narra -->
+          <div class="dialogue-box" >
+            <div id="narration-container" onclick="showNextNarration()" class="narration-container">
+              <p class="narration" id="narration-1">The entire city has fallen into a deep slumber, </p>
+              <p class="narration hidden" id="narration-2"> the seawater has turned into flames, </p>
+              <p class="narration hidden" id="narration-3">and paradise has been scorched to desolation.</p>
+              <p class="narration hidden" id="narration-4">Only you can save it all.  </p>
+              <p class="narration hidden" id="narration-5"> Do you see the evil dragons in the picture?CLICK IT AND DEFEAT IT</p>
+              <p class="narration hidden" id="congration-1">You successfully defeated it.</p>
+              <p class="narration hidden" id="congration-2">Brave warrior, </p>
+              <p class="narration hidden" id="congration-3"> follow the guiding light and rescue this city.</p>
+              <p class="narration hidden" id="congration-4">embark on the journey to defeat the dragons.</p>                
+            </div>
+            
+          </div>
+      </div>
+    </div> 
+    <div class="buttoncontainer">
+      <button type="button" onclick="showCurrent()" class="locationbutton" >Current location</button>
     </div>
-    
-    <audio id="sidebarAudio" preload="auto">
-      <source src="icon/win.wav" type="audio/mpeg">
-      SORRY,YOU CANNOT HEAR AUDIO.
-    </audio>
-  
- 
-    </footer>
-    <script>
-      document.body.style.height = window.innerHeight + 'px';
-      $(function () {
-          $.ajax({
-              url: "check_login.php",
-              method: "GET",
-              success: function(msg) {
-                  if (msg == 1){
-                      window.location="login.html";
-                  }  
-              },
-          })
+</div>
+<script src="js/mvp.js"></script>
+<!-- footer -->
+<footer>
+  </a>
+
+  <div class="exp">
+    <span class="level" style=" font-family: 'Pacifico', cursive;">Level1</span>
+    <div class="progress-bar">
+        <div class="progress"></div>
+  </div>
+</div>
+
+<audio id="sidebarAudio" preload="auto">
+  <source src="icon/win.wav" type="audio/mpeg">
+  SORRY,YOU CANNOT HEAR AUDIO.
+</audio>
+</footer>
+<script>
+  document.body.style.height = window.innerHeight + 'px';
+  $(function () {
+      $.ajax({
+          url: "check_login.php",
+          method: "GET",
+          success: function(msg) {
+              if (msg == 1){
+                  window.location="login.html";
+              }  
+          },
       })
-    </script>
-
-        
-
+  })
+</script>
 </body>
 </html>

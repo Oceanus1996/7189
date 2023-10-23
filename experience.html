@@ -13,15 +13,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap">
-	<style>
-       
-    
-</style>
 </head>
-
 <body style="background-color: white;">
-    <!-- navigation bar -->
-    
+  <!-- navigation bar -->
 	<div class="nav-items">
 		<div>
 			<img src="icon/logo.png" >
@@ -51,7 +45,6 @@
         </div>
         <img src="icon/Killdragon.png" alt="kill dragon" class="dragon-image"> 
       </div>
-       
     </div>
 <div id="filters">
   <!-- filter -->
@@ -65,12 +58,29 @@
   <input type="text" id="regionFilter" placeholder="Input place...">
   <button id="searchRegion" class="btn">Search</button>
 </div>
-    <div id="all-data" class="all-data">
-    </div>
-  
 
-<script src="experience.js"></script>
+<div id="popup" class="popup">
+  <h2>The Team and Story Behind the Game</h2>
+  <div class="image-text-wrapper">
+      <img src="icon/female1.png">
+      <p>
+        Hi! Hello there, we are the team AJAX. We created this game "CITY ADVENTURE" aiming to let users better understand the stories and news around them. <br><br>All our game data comes from the news reports of the ABC LOCAL website over the years.Please believe that all the news we present is absolutely true. We just show these stories in a more interesting way to help people understand the history and stories of a place more deeply.<br><br>We believe that by understanding these histories and old tales, you will love Brisbane even more.On the Experience page, you can randomly search and watch all the news without being restricted by the game's unlock.<br><br>  We hope that if you have just come to Brisbane, these stories will make you fall in love with the city because of its rich history. If you have any questions or suggestions, feel free to contact us!<br>
+        <br>Email: example@gmail.com<br>
+        Phone: 123-4567-8901<br>
+        Address: 123 Brisbane Street, Brisbane
+      </p>
 
+  </div>
+  <button onclick="closePopup()">CLOSE</button>
+</div>
+<div id="overlay" class="overlay"></div>
 
+<div id="all-data" class="all-data">
+</div>
+<script>
+
+</script> 
+
+<script src="js/experience.js"></script>
 </body>
 </html>

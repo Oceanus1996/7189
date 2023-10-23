@@ -2,7 +2,6 @@ var records= [];
 var all_data =[];
 let playerLevel = 1;
 
-
 //update the experience bar
 function updateHealthBar(){
     var grabbedMarkersCount = records.length % 3;   
@@ -77,6 +76,7 @@ $.when(
  });      
 
 
+//  create divs for all places
 function createDivsForSuburbs() {
     const container = $('#all-data');
     brisbaneSuburbs.forEach(suburb => {
@@ -94,6 +94,8 @@ function createDivsForSuburbs() {
         container.append($suburbDiv);
     });
 }
+
+//create every block to show news
 function insertDataToDivs(data) {
     data.result.records.forEach(function(record) {
     var urlId=convertUrlToId(record['URL']);
@@ -115,6 +117,7 @@ function insertDataToDivs(data) {
     });
 }  
 
+//create details for place blocks
 function addArticleToSection($section, imageUrl, record) {
     const articleId = convertUrlToId(record.URL); 
     const $newArticle = $('<article></article>', {
@@ -142,7 +145,8 @@ function addArticleToSection($section, imageUrl, record) {
     );
     $section.append($newArticle); // add article into the session of suburb 
 }
-    
+
+//error for image whether exists
 function checkImgExists(imgUrl){
     return new Promise(function(resolve, reject){
         var ImgObj = new Image();
@@ -155,6 +159,8 @@ function checkImgExists(imgUrl){
         };
     })
 }
+
+//filter function
 function applyStatusFilter() {
     const filterValue = $("#statusFilter").val();
     switch (filterValue) {
@@ -175,6 +181,7 @@ function applyStatusFilter() {
     }
 }
 
+//region filter
 function applyRegionFilter() {
     const regionValue = $("#regionFilter").val().toLowerCase();
     if (regionValue) {
@@ -190,6 +197,8 @@ function applyRegionFilter() {
         $(".suburb-div").show();  // if nothing input, show all div
     }
 }
+
+//unlocked region show
 function displayUnlocked(lockedIds, allIds) {
     allIds.forEach(function(id) {
         const convertedId = convertUrlToId(id);
@@ -228,3 +237,15 @@ $(document).ready(function() {
     // Listen for search button clicks
     $("#searchRegion").click(applyRegionFilter);
 });
+
+
+//popup introduction
+function openPopup() {
+    document.getElementById("popup").style.display = "block";
+    document.getElementById("overlay").style.display = "block";
+}
+
+function closePopup() {
+    document.getElementById("popup").style.display = "none";
+    document.getElementById("overlay").style.display = "none";
+}
