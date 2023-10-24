@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 require "mysql.php";
 $username = $_POST['username'];
 $password = $_POST['password'];
@@ -20,4 +20,4 @@ if ($re){
     echo "<script>alert('log in successful');window.location='select1.html'</script>";
 }else{
     echo "<script>alert('log in fail');window.location='login.html'</script>";
-}
+} -->

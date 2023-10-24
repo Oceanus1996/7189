@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 require "mysql.php";
 $username = $_POST['username'];
 $password = $_POST['password'];
@@ -18,4 +18,4 @@ $query=@mysqli_query($conn,$insertSql);
 if ($query){
     echo "<script>alert('register successful');window.location='login.html'</script>";
     die;
-}
+} -->
