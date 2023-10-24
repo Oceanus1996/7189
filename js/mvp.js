@@ -45,7 +45,6 @@ function displayRecordData(textContent,image,title){
     if(image != null){
         modelpicture.src = image;
     }else{
-        modelpicture.alt="NO pictures";
     }
     modelTitle.textContent= title;
 }

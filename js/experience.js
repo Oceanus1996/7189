@@ -163,8 +163,11 @@ function checkImgExists(imgUrl){
 //filter function
 function applyStatusFilter() {
     const filterValue = $("#statusFilter").val();
+
+    
     switch (filterValue) {
         case "all":
+            $(".style1").show();
             $(".record-div").show();
             break;
         case "unlocked":
@@ -173,6 +176,7 @@ function applyStatusFilter() {
             break;
         case "locked":
             $(".record-div").hide();
+
             displayUnlocked(records, all_data);
             break;
         default:
@@ -217,6 +221,7 @@ function displayUnlocked(lockedIds, allIds) {
 function displayDivsByIds(idsArray) {
     // hide all div
     $(".style1").hide(); 
+    
 
     // Iterate through idsArray and display the corresponding items.
     idsArray.forEach(function(id) {
