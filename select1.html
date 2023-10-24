@@ -20,6 +20,9 @@
         }
         .mode{
             display: flex;
+            flex-direction: column; 
+            align-items: center;
+            justify-content: center;
             gap: 20px;
             margin-top: 20px;
             opacity: 0;
@@ -29,14 +32,21 @@
             display: flex;
             align-items: center; 
             justify-content: center; 
+            gap: 20px; 
         }
         .caption{
             display: flex;
-            color: aliceblue;
-            font-size: 25px;
+            color: rgb(255, 253, 253);
+            font-size: 30px;
             font-family: 'Cinzel', serif;
 
 }
+.overlay{
+            width: 100%;
+            height: 100%;
+            background-color: rgba(128, 128, 128, 0.7); 
+            z-index: 2; 
+        }
         /* image */
         .block-1{
             width: 300px;   
@@ -111,13 +121,13 @@
 /* welcome text */
 
 .welcome-text {
-    font-size: 30px;
+    font-size: 50px;
     font-family: 'Cinzel', serif;
     opacity: 0;
     transition: opacity 2s;
     color: aliceblue;
     text-align: center; 
-    max-width: 600px; 
+    max-width: 650px; 
     margin: 0 auto; 
     white-space: pre-line; text-align: center; 
     max-width: 600px; 
@@ -147,6 +157,7 @@
 </style>
 </head>
 <body >
+    <div class="overlay">
     <!-- welcome text -->
     <div class="welcome-text" hidden>
         You are a young hero heard tales of a dragon that had sealed away the entire city.
@@ -181,6 +192,7 @@
         <source src="icon/Prelude.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
+</div>
     
 <script>
 document.addEventListener('DOMContentLoaded', function() {
